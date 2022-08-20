@@ -3,10 +3,10 @@ from app.models import db, Post, User, Comment
 
 def seed_comments():
     comment1 = Comment(
-        userId = 0,
-        postId = 0,
+        userId = 1,
+        postId = 1,
         content = "This is good.",
-        comment_like_users = [User.query.get(0), User.query.get(3), User.query.get(6)]
+        comment_like_users = [User.query.get(1), User.query.get(3), User.query.get(6)]
     )
 
     comment2 = Comment(
@@ -24,14 +24,14 @@ def seed_comments():
     )
 
     comment4 = Comment(
-        userId = 15,
+        userId = 16,
         postId = 3,
         content = "This is good.",
         comment_like_users = [User.query.get(6), User.query.get(10), User.query.get(12)]
     )
 
     comment5 = Comment(
-        userId = 0,
+        userId = 1,
         postId = 4,
         content = "This is good.",
         comment_like_users = [User.query.get(5), User.query.get(10), User.query.get(14)]

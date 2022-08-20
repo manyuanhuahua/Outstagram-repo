@@ -13,7 +13,7 @@ class Post(db.Model):
   __tablename__ = "posts"
 
   id = db.Column(db.Integer, primary_key=True)
-  userId = db.Column(db.Integer, ForeignKey("users.id"), nullable=False)
+  userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
   description = db.Column(db.String(500))
   # imageUrl = db.Column(db.String(500))
   image_url = db.Column(db.String(500))

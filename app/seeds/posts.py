@@ -3,21 +3,21 @@ from app.models import db, Post, User
 
 def seed_posts():
     post1 = Post(
-        userId = 0,
+        userId = 1,
         description = "This is my first post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
-        post_like_users = [User.query.get(0),User.query.get(2) , User.query.get(3)]
+        post_like_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
 
     post2 = Post(
-        userId = 0,
+        userId = 1,
         description = "This is my second post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
         post_like_users = [User.query.get(5),User.query.get(8) , User.query.get(9)]
     )
 
     post3 = Post(
-        userId = 0,
+        userId = 1,
         description = "This is my third post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
         post_like_users = [User.query.get(4),User.query.get(10) , User.query.get(12)]
@@ -27,18 +27,18 @@ def seed_posts():
         userId = 1,
         description = "This is my first post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
-        post_like_users = [User.query.get(0),User.query.get(2) , User.query.get(4)]
+        post_like_users = [User.query.get(1),User.query.get(2) , User.query.get(4)]
     )
 
     post5 = Post(
-        userId = 1,
+        userId = 2,
         description = "This is my second post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
         post_like_users = [User.query.get(6),User.query.get(7) , User.query.get(8)]
     )
 
     post6 = Post(
-        userId = 2,
+        userId = 3,
         description = "This is my first post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
         post_like_users = [User.query.get(11),User.query.get(12) , User.query.get(14)]
@@ -48,7 +48,7 @@ def seed_posts():
         userId = 3,
         description = "This is my first post",
         image_url = "https://res.cloudinary.com/zhihongliu/image/upload/v1658940428/cld-sample-2.jpg",
-        post_like_users = [User.query.get(6),User.query.get(9) , User.query.get(15)]
+        post_like_users = [User.query.get(6),User.query.get(9) , User.query.get(16)]
     )
 
     post8 = Post(

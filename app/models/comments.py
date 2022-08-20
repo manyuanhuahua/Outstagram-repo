@@ -13,8 +13,8 @@ class Comment(db.Model):
   __tablename__ = "comments"
 
   id = db.Column(db.Integer, primary_key=True)
-  userId = db.Column(db.Integer, ForeignKey("users.id"), nullable=False)
-  postId = db.Column(db.Integer)
+  userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+  postId = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
   content = db.Column(db.String(500))
   # postedAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
   created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
