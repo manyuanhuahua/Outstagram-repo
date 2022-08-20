@@ -3,7 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # from sqlalchemy ForeignKey
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
-from .post import Post
+from .post import Post, post_likes
+from .comments import comment_likes
 
 follows = db.Table(
     "follows",
@@ -17,6 +18,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    fullname = db.Column(db.String(50), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image = db.Column(db.String(500))
     bio = db.Column(db.String(300))
@@ -30,9 +32,23 @@ class User(db.Model, UserMixin):
         lazy="dynamic"
     )
 
-    posts = relationship("Post", back_populates="user", foreign_keys="Post.userId")
-    likes = relationship("Like", back_populates="user")
-    comments = relationship("Comment", back_populates="user")
+    like_posts = db.relationship(
+        "Post",
+        secondary=post_likes,
+        back_populates="post_like_users"
+    )
+
+    like_comments = db.relationship(
+        "Comment",
+        secondary=comment_likes,
+        back_populates="comment_like_users"
+    )
+
+    # posts = relationship("Post", back_populates="user", foreign_keys="Post.userId")
+    posts = relationship("Post", back_populates="user", cascade="all, delete")
+    # likes = relationship("Like", back_populates="user")
+    # comments = relationship("Comment", back_populates="user")
+    comments = relationship("Comment", back_populates="user", cascade="all, delete")
 
     @property
     def password(self):
