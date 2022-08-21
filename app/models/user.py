@@ -1,3 +1,4 @@
+
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 # from sqlalchemy ForeignKey
@@ -8,8 +9,8 @@ from .comments import comment_likes
 
 follows = db.Table(
     "follows",
-    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
+    db.Column("follower_id", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE")),
+    db.Column("followed_id", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
 )
 
 class User(db.Model, UserMixin):
@@ -20,7 +21,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     fullname = db.Column(db.String(50), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
-    profile_image = db.Column(db.String(500))
+    profile_image = db.Column(db.String(500),default="https://res.cloudinary.com/zhihongliu/image/upload/v1658940427/cld-sample.jpg")
     bio = db.Column(db.String(300))
 
     followers = db.relationship(
@@ -28,27 +29,31 @@ class User(db.Model, UserMixin):
         secondary=follows,
         primaryjoin=(follows.c.follower_id == id),
         secondaryjoin=(follows.c.followed_id == id),
-        backref=db.backref("following", lazy="dynamic"),
-        lazy="dynamic"
+        backref=db.backref("following", lazy="dynamic", passive_deletes=True),
+        #add cascade="all, delete" on Model and need test it the delete cascade
+        lazy="dynamic",
+        cascade="all, delete"
     )
 
     like_posts = db.relationship(
         "Post",
         secondary=post_likes,
-        back_populates="post_like_users"
+        back_populates="post_like_users",
+        cascade="all, delete"
     )
 
     like_comments = db.relationship(
         "Comment",
         secondary=comment_likes,
-        back_populates="comment_like_users"
+        back_populates="comment_like_users",
+        cascade="all, delete"
     )
 
     # posts = relationship("Post", back_populates="user", foreign_keys="Post.userId")
-    posts = relationship("Post", back_populates="user", cascade="all, delete")
+    posts = db.relationship("Post", back_populates="user", cascade="all, delete")
     # likes = relationship("Like", back_populates="user")
     # comments = relationship("Comment", back_populates="user")
-    comments = relationship("Comment", back_populates="user", cascade="all, delete")
+    comments = db.relationship("Comment", back_populates="user", cascade="all, delete")
 
     @property
     def password(self):

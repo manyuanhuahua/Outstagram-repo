@@ -5,15 +5,15 @@ from sqlalchemy import ForeignKey
 
 post_likes = db.Table(
   "post_likes",
-  db.Column("postId", db.Integer, db.ForeignKey("posts.id"), primary_key=True),
-  db.Column("userId", db.Integer, db.ForeignKey("users.id"), primary_key=True)
+  db.Column("postId", db.Integer, db.ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True),
+  db.Column("userId", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
 )
 
 class Post(db.Model):
   __tablename__ = "posts"
 
   id = db.Column(db.Integer, primary_key=True)
-  userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+  userId = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
   description = db.Column(db.String(500))
   # imageUrl = db.Column(db.String(500))
   image_url = db.Column(db.String(500))
@@ -25,12 +25,13 @@ class Post(db.Model):
 
   # likes = relationship("Like", back_populates="posts")
   # comments = relationship("Comment", back_populates="posts")
-  comments = db.relationship("Comment", back_populates="post")
+  comments = db.relationship("Comment", back_populates="post", cascade="all, delete")
 
   post_like_users = db.relationship(
         "User",
         secondary=post_likes,
-        back_populates="like_posts"
+        back_populates="like_posts",
+        passive_deletes=True
   )
 
 
@@ -39,7 +40,7 @@ class Post(db.Model):
       "id": self.id,
       "userId": self.userId,
       "description": self.description,
-      "imageUrl": self.imageUrl,
-      "postedAt": self.postedAt,
-      "username": self.user.username
+      "image_url": self.image_url,
+      "created_at": self.created_at,
+      "user": self.user
     }

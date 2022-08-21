@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 745443812a15
+Revision ID: 4cc2d10214d7
 Revises: 
-Create Date: 2022-08-20 18:41:41.575183
+Create Date: 2022-08-21 16:12:31.216890
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '745443812a15'
+revision = '4cc2d10214d7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,8 +33,8 @@ def upgrade():
     op.create_table('follows',
     sa.Column('follower_id', sa.Integer(), nullable=True),
     sa.Column('followed_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['followed_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['follower_id'], ['users.id'], )
+    sa.ForeignKeyConstraint(['followed_id'], ['users.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['follower_id'], ['users.id'], ondelete='CASCADE')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -42,7 +42,7 @@ def upgrade():
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('image_url', sa.String(length=500), nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('comments',
@@ -51,22 +51,22 @@ def upgrade():
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=500), nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
-    sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['postId'], ['posts.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('post_likes',
     sa.Column('postId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['postId'], ['posts.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['postId'], ['posts.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('postId', 'userId')
     )
     op.create_table('comment_likes',
     sa.Column('commentId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['commentId'], ['comments.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('commentId', 'userId')
     )
     # ### end Alembic commands ###
