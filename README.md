@@ -43,7 +43,7 @@ This is the starter for the Flask React project.
 <br>
 
 ## Deploy to Heroku
-This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations. 
+This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations.
 
 1. Write your Dockerfile. In order for the Github action to work effectively, it must have a configured Dockerfile. Follow the comments found in this [Dockerfile](./Dockerfile) to write your own!
 
@@ -84,4 +84,8 @@ each of the following variables:
 | `heroku authorizations:create` | Once authenticated, use this to generate an Oauth token |
 | `heroku run -a <app name>` | Run a command from within the deployed container on Heroku |
 
+
+
+
+#turn on sqlite3 foreign key delete cascade: PRAGMA foreign_keys =ON
 
