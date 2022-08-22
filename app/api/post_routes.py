@@ -145,4 +145,5 @@ def update_post(postId):
             "like_status": False
         }
         return res
+        
     return  {'errors': ['image is required']}, 400
