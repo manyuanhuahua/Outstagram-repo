@@ -146,5 +146,4 @@ def update_post(postId):
         }
         return res
 
-        
     return  {'errors': ['image is required']}, 400
