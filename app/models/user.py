@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     fullname = db.Column(db.String(50), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image = db.Column(db.String(500),default="https://res.cloudinary.com/zhihongliu/image/upload/v1658940427/cld-sample.jpg")
-    bio = db.Column(db.String(300))
+    bio = db.Column(db.String(300), default="My default bio.")
 
     followers = db.relationship(
         "User",
@@ -70,5 +70,11 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'fullname': self.fullname,
+            'profile_image': self.profile_image,
+            'bio': self.bio,
+            'total_followers': self.followers.count(),
+            'total_followings': self.following.count(),
+            'total_posts': len(self.posts)
         }
