@@ -38,9 +38,11 @@ class Post(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
-      "userId": self.userId,
+      "user_id": self.userId,
       "description": self.description,
       "image_url": self.image_url,
       "created_at": self.created_at,
-      "user": self.user
+      "user": self.user,
+      "total_comments": len(self.comments),
+      "total_likes": len(self.post_like_users),
     }
