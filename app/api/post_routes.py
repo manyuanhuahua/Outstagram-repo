@@ -115,3 +115,34 @@ def create_post():
         }
         return res
     return  {'errors': ['image is required']}, 400
+
+#update a post
+@post_routes.route('/<int:postId>',methods=['POST'])
+@login_required
+def update_post(postId):
+    form = CreatePostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    post = Post(
+        description=form.data['description'],
+        image_url=form.data['image_url']
+    )
+        post.userId = current_user.id
+        db.session.add(post)
+        db.session.commit()
+        res={
+            "id": post.id,
+            "user_id": post.userId,
+            "description": post.description,
+            "image_url": post.image_url,
+            "created_at": post.created_at,
+            "user": {
+                "profile_image":post.user.profile_image,
+                "username":post.user.username
+            },
+            "total_comments": len(post.comments),
+            "total_likes":len(post.post_like_users),
+            "like_status": False
+        }
+        return res
+    return  {'errors': ['image is required']}, 400
