@@ -99,6 +99,7 @@ def create_post():
         post.userId = current_user.id
         db.session.add(post)
         db.session.commit()
+
         res={
             "id": post.id,
             "user_id": post.userId,
@@ -116,36 +117,43 @@ def create_post():
         return res
     return  {'errors': ['image is required']}, 400
 
+
 #update a post
-@post_routes.route('/<int:postId>',methods=['POST'])
+@post_routes.route('/<int:postId>',methods=['PUT'])
 @login_required
 def update_post(postId):
     form = CreatePostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    post = Post.query.get(postId)
+    if post.image_url != form.data['image_url']:
+        return {'errors': ['image cannot be changed']}, 400
 
-    post = Post(
-        description=form.data['description'],
-        image_url=form.data['image_url']
-    )
-        post.userId = current_user.id
-        db.session.add(post)
-        db.session.commit()
-        res={
-            "id": post.id,
-            "user_id": post.userId,
-            "description": post.description,
-            "image_url": post.image_url,
-            "created_at": post.created_at,
-            "user": {
-                "profile_image":post.user.profile_image,
-                "username":post.user.username
-            },
-            "total_comments": len(post.comments),
-            "total_likes":len(post.post_like_users),
-            "like_status": False
-        }
-        return res
+    post.description=(form.data['description'])
+    db.session.commit()
+    like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
+    res={
+        "id": post.id,
+        "user_id": post.userId,
+        "description": post.description,
+        "image_url": post.image_url,
+        "created_at": post.created_at,
+        "user": {
+            "profile_image":post.user.profile_image,
+            "username":post.user.username
+        },
+        "total_comments": len(post.comments),
+        "total_likes":len(post.post_like_users),
+        "like_status": True if len(like_status) > 0 else False
+    }
+    return res
 
-
-
-    return  {'errors': ['image is required']}, 400
+#delete a post
+@post_routes.route('/<int:postId>',methods=['DELETE'])
+@login_required
+def delete_post(postId):
+    post = Post.query.get(postId)
+    if not post:
+        return {'errors': ['post cannot be found']}, 400
+    db.session.delete(post)
+    db.session.commit()
+    return {"message":"Successfully deleted"}
