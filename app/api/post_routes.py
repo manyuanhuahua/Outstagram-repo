@@ -330,3 +330,55 @@ def update_post_likes(postId):
     updated_current_user_like = list(filter(lambda user: user.id == current_user.id, updated_like_users))
     current_user_like_status = 1 if len(updated_current_user_like) else 0
     return {"postId": postId, "likeStatus": current_user_like_status, "totalLikes": len(updated_post.post_like_users)}
+
+#Get all likes of specified comment
+@post_routes.route('/<int:postId>/comments/<int:commentId>/likes')
+@login_required
+def get_comment_likes(postId,commentId):
+    post = Post.query.get(postId)
+    if not post:
+        return {'errors': ['post cannot be found']}, 400
+    comment = Comment.query.get(commentId)
+    if not comment:
+        return {'errors': ['comment cannot be found']}, 400
+    res = {}
+    for user in comment.comment_like_users:
+        res[user.id] = {
+            "username": user.username,
+            "fullname": user.fullname,
+            "profileImage": user.profile_image
+        }
+
+    return {"like_users": res}
+
+#update the like status for a specified comment
+@post_routes.route('/<int:postId>/comments/<int:commentId>/likes', methods=["PUT"])
+@login_required
+def update_comment_likes(postId,commentId):
+
+    post = Post.query.get(postId)
+    if not post:
+        return {'errors': ['post cannot be found']}, 400
+    comment = Comment.query.get(commentId)
+    if not comment:
+        return {'errors': ['comment cannot be found']}, 400
+    like_users = list(comment.comment_like_users)
+    current_user_like = list(filter(lambda user: user.id == current_user.id, like_users))
+    if len(current_user_like) == 0:
+        comment.comment_like_users.append(current_user)
+        db.session.commit()
+    else:
+        comment.comment_like_users.remove(current_user)
+        db.session.commit()
+
+
+    updated_comment = Comment.query.get(postId)
+    updated_like_users = list(updated_comment.comment_like_users)
+    updated_current_user_like = list(filter(lambda user: user.id == current_user.id, updated_like_users))
+    current_user_like_status = 1 if len(updated_current_user_like) else 0
+    return {
+        "commentId":commentId,
+        "postId": postId,
+        "likeStatus": current_user_like_status,
+        "totalLikes": len(updated_comment.comment_like_users)
+        }
