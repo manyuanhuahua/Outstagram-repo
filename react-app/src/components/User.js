@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 function User() {
   const [user, setUser] = useState({});
-  const { userId }  = useParams();
+  const { userId } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     if (!userId) {
@@ -17,9 +19,8 @@ function User() {
   }, [userId]);
 
   if (!user) {
-    return null;
+    return history.push('/login');
   }
-
   return (
     <ul>
       <li>
@@ -30,6 +31,12 @@ function User() {
       </li>
       <li>
         <strong>Email</strong> {user.email}
+      </li>
+      <li>
+        <strong>Followers</strong> {user.total_followers}
+      </li>
+      <li>
+        <strong>Following</strong> {user.total_followings}
       </li>
     </ul>
   );
