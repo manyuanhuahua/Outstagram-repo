@@ -206,3 +206,15 @@ form {
 label {
   padding-bottom: 0px;
 }
+
+.text-div-sign-up {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 210px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #909090;
+  font-size: 17px;
+  font-weight: 600;
+}
