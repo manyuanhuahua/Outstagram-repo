@@ -18,20 +18,10 @@ def get_all_posts():
 
     for post in posts:
         like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
-        res[post.id]={
-            "id": post.id,
-            "user_id": post.userId,
-            "description": post.description,
-            "image_url": post.image_url,
-            "created_at": post.created_at,
-            "user": {
-                "profile_image":post.user.profile_image,
-                "username":post.user.username,
-            },
-            "total_comments": len(post.comments),
-            "total_likes":len(post.post_like_users),
-            "like_status":True if len(like_status) > 0 else False,
-        }
+        post_dict = post.to_dict()
+        post_dict["likeStatus"] = True if len(like_status) > 0 else False
+        res[post.id] = post_dict
+
     return {"Posts": res}
 
 #get all posts from other user
@@ -42,20 +32,10 @@ def get_others_posts(id):
     res = {}
     for post in posts:
         like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
-        res[post.id]={
-            "id": post.id,
-            "user_id": post.userId,
-            "description": post.description,
-            "image_url": post.image_url,
-            "created_at": post.created_at,
-            "user": {
-                "profile_image":post.user.profile_image,
-                "username":post.user.username
-            },
-            "total_comments": len(post.comments),
-            "total_likes":len(post.post_like_users),
-            "like_status":True if len(like_status) > 0 else False
-        }
+        post_dict = post.to_dict()
+        post_dict["likeStatus"] = True if len(like_status) > 0 else False
+        res[post.id] = post_dict
+
     return {"Posts": res}
 
 
@@ -65,26 +45,12 @@ def get_others_posts(id):
 def get_post_detail(id):
     post = Post.query.get(id)
     if not post:
-
         return {'errors': ['post can not be found']},404
 
-    # res = {}
     like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
-    res={
-            "id": post.id,
-            "user_id": post.userId,
-            "description": post.description,
-            "image_url": post.image_url,
-            "created_at": post.created_at,
-            "user": {
-                "profile_image":post.user.profile_image,
-                "username":post.user.username
-            },
-            "total_comments": len(post.comments),
-            "total_likes":len(post.post_like_users),
-            "like_status":True if len(like_status) > 0 else False
-        }
-    return res
+    post_dict = post.to_dict()
+    post_dict["likeStatus"] = True if len(like_status) > 0 else False
+    return post_dict
 
 
 #create a post
@@ -102,20 +68,8 @@ def create_post():
         db.session.add(post)
         db.session.commit()
 
-        res={
-            "id": post.id,
-            "user_id": post.userId,
-            "description": post.description,
-            "image_url": post.image_url,
-            "created_at": post.created_at,
-            "user": {
-                "profile_image":post.user.profile_image,
-                "username":post.user.username
-            },
-            "total_comments": len(post.comments),
-            "total_likes":len(post.post_like_users),
-            "like_status": False
-        }
+        res=post.to_dict()
+        res["likeStatus"] = False
         return res
     return  {'errors': ['image is required']}, 400
 
@@ -137,20 +91,9 @@ def update_post(postId):
     post.description=(form.data['description'])
     db.session.commit()
     like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
-    res={
-        "id": post.id,
-        "user_id": post.userId,
-        "description": post.description,
-        "image_url": post.image_url,
-        "created_at": post.created_at,
-        "user": {
-            "profile_image":post.user.profile_image,
-            "username":post.user.username
-        },
-        "total_comments": len(post.comments),
-        "total_likes":len(post.post_like_users),
-        "like_status": True if len(like_status) > 0 else False
-    }
+    res = post.to_dict()
+    res["likeStatus"] = True if len(like_status) > 0 else False
+
     return res
 
 #delete a post
@@ -180,20 +123,11 @@ def get_all_comments(postId):
     res = {}
     for comment in comments:
         like_status = list(filter(lambda user: user.id==current_user.id, comment.comment_like_users))
-        res[comment.id] = {
-            "id": comment.id,
-            "userId": comment.userId,
-            "postId": comment.postId,
-            "user": {
-                "profileImage": comment.user.profile_image,
-                "username": comment.user.username
-            },
-            "content": comment.content,
-            "likeStatus": True if len(like_status) > 0 else False,
-            "totalLikes": len(comment.comment_like_users),
-            "createdAt": comment.created_at
-        }
+        comment_dict = comment.to_dict()
+        comment_dict["likeStatus"] = True if len(like_status) > 0 else False
+        res[comment.id] = comment_dict
     return {"Comments": res}
+
 
 #Create a comment
 @post_routes.route('/<int:postId>/comments/new', methods=["POST"])
@@ -214,18 +148,8 @@ def create_comments(postId):
         db.session.add(comment)
         db.session.commit()
 
-        res = {
-            "id": comment.id,
-            "userId": comment.userId,
-            "content": comment.content,
-            "createdAt": comment.created_at,
-            "user": {
-                "profileImage":comment.user.profile_image,
-                "username":comment.user.username
-            },
-            "total_likes":len(comment.comment_like_users),
-            "like_status": False
-        }
+        res = comment.to_dict()
+        res["likeStatus"] = False
         return res
     return  {'errors': ['content is required']}, 400
 
@@ -251,18 +175,20 @@ def update_comments(postId, commentId):
         comment.content = form.data["content"]
         db.session.commit()
         like_status = list(filter(lambda user: user.id==current_user.id, comment.comment_like_users))
-        res = {
-            "id": comment.id,
-            "userId": comment.userId,
-            "content": comment.content,
-            "createdAt": comment.created_at,
-            "user": {
-                "profileImage":comment.user.profile_image,
-                "username":comment.user.username
-            },
-            "totalLikes":len(comment.comment_like_users),
-            "likeStatus": True if len(like_status) > 0 else False
-        }
+        res = comment.to_dict()
+        res["likeStatus"] = True if len(like_status) > 0 else False
+        # res = {
+        #     "id": comment.id,
+        #     "userId": comment.userId,
+        #     "content": comment.content,
+        #     "createdAt": comment.created_at,
+        #     "user": {
+        #         "profileImage":comment.user.profile_image,
+        #         "username":comment.user.username
+        #     },
+        #     "totalLikes":len(comment.comment_like_users),
+        #     "likeStatus": True if len(like_status) > 0 else False
+        # }
         return res
     return  {'errors': ['content is required']}, 400
 
