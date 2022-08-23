@@ -45,6 +45,10 @@ class Post(db.Model):
       "user": {
           "profileImage":self.user.profile_image,
           "username":self.user.username,
+          'total_followers': self.user.followers.count(),
+          'total_followings': self.user.following.count(),
+          'total_posts': len(self.user.posts),
+          'fullname': self.user.fullname
       },
       "totalComments": len(self.comments),
       "totalLikes": len(self.post_like_users),
