@@ -35,5 +35,10 @@ class Comment(db.Model):
       "userId": self.userId,
       "postId": self.postId,
       "content": self.content,
-      "created_at": self.created_at
+      "createdAt": self.created_at,
+      "user": {
+                "profileImage": self.user.profile_image,
+                "username": self.user.username
+            },
+      "totalLikes": len(self.comment_like_users)
     }
