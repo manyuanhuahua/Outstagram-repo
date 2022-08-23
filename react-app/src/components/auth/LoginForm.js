@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import '../../styles/LoginForm.css';
+import logo from '../../Images/Outstagram-text-login.png';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [showPasswordText, setShowPasswordText] = useState('Show' || 'hide')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -18,6 +23,15 @@ const LoginForm = () => {
     }
   };
 
+  // Password toggle handler
+  const togglePassword = (e) => {
+    e.preventDefault();
+    // When the handler is invoked
+    // inverse the boolean state of passwordShown
+    setPasswordShown(!passwordShown);
+    setShowPasswordText(!showPasswordText)
+  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -26,39 +40,66 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+
   if (user) {
     return <Redirect to='/' />;
   }
 
+
+  // const handleDemo = () => {
+  //   const credential = 'demo@user.io'
+  //   const password = 'password'
+  //   return dispatch(sessionActions.login({ credential, password }))
+  //     .then(() => history.push('/images'))
+  // }
+
+
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div>
+      <div className='login-form-container-div'>
+        <form onSubmit={onLogin} className='login-form-wrapper'>
+          <img src={logo} alt="outstagram-text" className='outstagram-logo-text' />
+          <div className='input-wrapper-div'>
+            <input
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={updateEmail}
+              required
+            />
+          </div>
+          <div>
+            <div className='input-wrapper-div'>
+
+              <input
+                name='password'
+                type={passwordShown ? "text" : "password"}
+                placeholder='Password'
+                value={password}
+                onChange={updatePassword}
+                required
+              />
+            </div>
+            <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>
+            <div>
+              <button type='submit' className='login-button'>Log In</button>
+            </div>
+            <div>
+              {errors.map((error, ind) => (
+                <div key={ind}>{error}</div>
+              ))}
+            </div>
+          </div>
+        </form>
+        <div className='signup-button-loginform-container'>
+          <label style={{ marginRight: '4px' }}>Don't have an account?</label>
+          <NavLink to='/sign-up' exact={true} className='signup-link-login-form'>
+            Sign Up
+          </NavLink>
+        </div>
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
-    </form>
+    </div>
   );
 };
 
