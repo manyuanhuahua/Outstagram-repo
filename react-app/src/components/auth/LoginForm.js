@@ -64,7 +64,6 @@ const LoginForm = () => {
             <input
               name='email'
               type='text'
-              placeholder='Email'
               value={email}
               onChange={updateEmail}
               required
@@ -73,12 +72,11 @@ const LoginForm = () => {
           <div>
             <div className='input-wrapper-div'>
               <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Password</label>
-              <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>
+              {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>}
               <input
                 // style={{ width: '210px', maxWidth: '220px', overflowX: 'auto' }}
                 name='password'
                 type={passwordShown ? "text" : "password"}
-                placeholder='Password'
                 value={password}
                 onChange={updatePassword}
                 required
