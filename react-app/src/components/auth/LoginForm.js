@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import '../../styles/LoginForm.css';
 import logo from '../../Images/Outstagram-text-login.png';
+import iphonePng from '../../Images/apple-iphone-13-2021-medium.png'
+// import Carousel from './Carousel';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -55,15 +57,20 @@ const LoginForm = () => {
 
 
   return (
-    <div>
-      <div className='login-form-container-div'>
+    <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      {/* <img src={iphonePng} style={{ height: '750px', width: '352px', marginRight: '100px', zIndex: '1' }} /> */}
+      <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} style={{ marginRight: '125px' }} />
+      <div className='login-form-container-div' style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          {/* <Carousel /> */}
+        </div>
         <form onSubmit={onLogin} className='login-form-wrapper'>
           <img src={logo} alt="outstagram-text" className='outstagram-logo-text' />
           <div className='input-wrapper-div'>
+            <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Email</label>
             <input
               name='email'
               type='text'
-              placeholder='Email'
               value={email}
               onChange={updateEmail}
               required
@@ -71,17 +78,17 @@ const LoginForm = () => {
           </div>
           <div>
             <div className='input-wrapper-div'>
-
+              <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Password</label>
+              {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>}
               <input
+                // style={{ width: '210px', maxWidth: '220px', overflowX: 'auto' }}
                 name='password'
                 type={passwordShown ? "text" : "password"}
-                placeholder='Password'
                 value={password}
                 onChange={updatePassword}
                 required
               />
             </div>
-            <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>
             <div>
               <button type='submit' className='login-button'>Log In</button>
             </div>
