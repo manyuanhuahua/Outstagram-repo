@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.models import Post,db, Comment
 from app.forms.create_post import CreatePostForm
 from app.forms.create_comment import CreateCommentForm
+import json
 
 
 post_routes = Blueprint('posts', __name__)
@@ -285,3 +286,47 @@ def delete_comment(postId, commentId):
     db.session.delete(comment)
     db.session.commit()
     return {"message":"Successfully deleted"}
+
+
+#Get all likes of specified post
+@post_routes.route('/<int:postId>/likes')
+@login_required
+def get_post_likes(postId):
+    post = Post.query.get(postId)
+    if not post:
+        return {'errors': ['post cannot be found']}, 400
+    like_users = list(post.post_like_users)
+    res = {}
+    for user in like_users:
+        res[user.id] = {
+            "username": user.username,
+            "fullname": user.fullname,
+            "profileImage": user.profile_image
+        }
+
+    return {"like_users": res}
+
+
+#update the like status for a specified post
+@post_routes.route('/<int:postId>/likes', methods=["PUT"])
+@login_required
+def update_post_likes(postId):
+
+    post = Post.query.get(postId)
+    if not post:
+        return {'errors': ['post cannot be found']}, 400
+    like_users = list(post.post_like_users)
+    current_user_like = list(filter(lambda user: user.id == current_user.id, like_users))
+    if len(current_user_like) == 0:
+        post.post_like_users.append(current_user)
+        db.session.commit()
+    else:
+        post.post_like_users.remove(current_user)
+        db.session.commit()
+
+
+    updated_post = Post.query.get(postId)
+    updated_like_users = list(updated_post.post_like_users)
+    updated_current_user_like = list(filter(lambda user: user.id == current_user.id, updated_like_users))
+    current_user_like_status = 1 if len(updated_current_user_like) else 0
+    return {"postId": postId, "likeStatus": current_user_like_status, "totalLikes": len(updated_post.post_like_users)}
