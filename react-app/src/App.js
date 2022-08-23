@@ -9,6 +9,8 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import { useSelector } from 'react-redux';
+import GetPosts from './components/posts/GetPosts'
+import GetOthersPosts from './components/posts/GetOthersPosts';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +44,12 @@ function App() {
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
+        </ProtectedRoute>
+        <ProtectedRoute path='/session/posts' exact={true} >
+          <GetPosts />
+        </ProtectedRoute>
+        <ProtectedRoute path='/users/:userId/posts' exact={true} >
+          <GetOthersPosts />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
