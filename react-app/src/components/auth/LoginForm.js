@@ -60,6 +60,7 @@ const LoginForm = () => {
         <form onSubmit={onLogin} className='login-form-wrapper'>
           <img src={logo} alt="outstagram-text" className='outstagram-logo-text' />
           <div className='input-wrapper-div'>
+            <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Email</label>
             <input
               name='email'
               type='text'
@@ -71,8 +72,10 @@ const LoginForm = () => {
           </div>
           <div>
             <div className='input-wrapper-div'>
-
+              <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Password</label>
+              <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>
               <input
+                // style={{ width: '210px', maxWidth: '220px', overflowX: 'auto' }}
                 name='password'
                 type={passwordShown ? "text" : "password"}
                 placeholder='Password'
@@ -81,7 +84,6 @@ const LoginForm = () => {
                 required
               />
             </div>
-            <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>
             <div>
               <button type='submit' className='login-button'>Log In</button>
             </div>
