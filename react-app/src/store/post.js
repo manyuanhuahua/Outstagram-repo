@@ -5,6 +5,7 @@ const GET_POST_DETAIL = "post/GET_POST_DETAIL"
 const CREATE_POST = "post/CREATE_POST"
 const UPDATE_POST = "post/UPDATE_POST"
 const DELETE_POST = "post/DELETE_POST"
+const GET_ALL_POSTS = 'post/GET_ALL_POSTS'
 
 
 
@@ -51,6 +52,13 @@ const deletePost = (postId) =>{
 
 }
 
+const getAllPosts = (posts) => {
+  return {
+    type: GET_ALL_POSTS,
+    posts
+  }
+}
+
 export const getOwnPostsThunk = () => async dispatch => {
   const response = await fetch('/api/posts/user/session');
   if (response.ok) {
@@ -70,6 +78,14 @@ export const getOthersPostsThunk = (id) => async dispatch => {
 
   return response
   }
+
+export const getAllPostsThunk = () => async dispatch => {
+  const response = await fetch('/api/posts/all');
+  if (response.ok) {
+    const posts = await response.json()
+    dispatch(getAllPosts(posts))
+  }
+}
 
 export const getPostDetailThunk = (postId) => async dispatch => {
   const response = await fetch(`/api/posts/${postId}`);
@@ -163,7 +179,13 @@ export default function reducer(state = initialState, action) {
         delete newState[action.postId]
         return newState
       }
-
+      case GET_ALL_POSTS:
+        newState = {...state}
+        console.log('this', Object.values(action.posts.Posts))
+        Object.values(action.posts.Posts).forEach(post => {
+          newState[post.id] = post
+        })
+        return newState
       default:
         return state;
     }
