@@ -11,12 +11,9 @@ import { authenticate } from './store/session';
 import { useSelector } from 'react-redux';
 import GetPosts from './components/posts/GetPosts'
 import GetOthersPosts from './components/posts/GetOthersPosts';
-<<<<<<< HEAD
 import HomePage from './components/homePage';
-=======
 import PostDetail from './components/posts/PostDetail';
 import CreatePostForm from './components/posts/CreatePost';
->>>>>>> dev
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -57,7 +54,7 @@ function App() {
         <ProtectedRoute path='/session/posts' exact={true} >
           <GetPosts />
         </ProtectedRoute>
-        
+
         <ProtectedRoute path='/posts/new' exact={true} >
           <CreatePostForm />
         </ProtectedRoute>
