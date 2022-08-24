@@ -40,10 +40,10 @@ def get_others_posts(id):
 
 
 #get the detail from a selected post
-@post_routes.route('/<int:id>')
+@post_routes.route('/<int:postId>')
 @login_required
-def get_post_detail(id):
-    post = Post.query.get(id)
+def get_post_detail(postId):
+    post = Post.query.get(postId)
     if not post:
         return {'errors': ['post can not be found']},404
 

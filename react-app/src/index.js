@@ -11,9 +11,9 @@ const store = configureStore();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <ModalProvider> */}
+      <ModalProvider>
       <App />
-      {/* </ModalProvider> */}
+      </ModalProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

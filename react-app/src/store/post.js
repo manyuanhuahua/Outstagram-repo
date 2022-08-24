@@ -2,6 +2,10 @@
 const GET_OWN_POSTS = "post/GET_OWN_POSTS"
 const GET_OTHERS_POSTS = "post/GET_OTHERS_POSTS"
 const GET_POST_DETAIL = "post/GET_POST_DETAIL"
+const CREATE_POST = "post/CREATE_POST"
+const UPDATE_POST = "post/UPDATE_POST"
+const DELETE_POST = "post/DELETE_POST"
+
 
 
 const getOwnPosts = (posts) => {
@@ -25,6 +29,27 @@ const getPostDetail = (post) => {
   }
 }
 
+const createPost = (newPost) => {
+  return {
+    type: CREATE_POST,
+    newPost
+  }
+}
+
+const updatePost = (post) =>{
+  return {
+    type:UPDATE_POST,
+    post
+  }
+}
+
+const deletePost = (postId) =>{
+  return {
+    type:DELETE_POST,
+    postId
+  }
+
+}
 
 export const getOwnPostsThunk = () => async dispatch => {
   const response = await fetch('/api/posts/user/session');
@@ -56,7 +81,52 @@ export const getPostDetailThunk = (postId) => async dispatch => {
   return response
 }
 
+export const createPostThunk = (newPost) => async dispatch => {
+  const response = await fetch('/api/posts/new', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(newPost)
+  });
 
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createPost(data))
+    return data
+  }
+  const res = await response.json()
+  return res
+}
+
+export const updatePostThunk = (post)=> async dispatch =>{
+
+  const response = await fetch(`/api/posts/${post.id}`,{
+    method:'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(post)
+  });
+  const res = await response.json()
+  if(response.ok){
+    // const editedPost = await response.json();
+    dispatch(updatePost(res));
+    // return res
+  }
+  return res
+}
+
+export const deletePostThunk = (postId) => async dispatch =>{
+  const response = await fetch(`/api/posts/${postId}`,{
+    method:'DELETE',
+  });
+  if(response.ok){
+    dispatch(deletePost(postId))
+
+  }
+  return response
+}
 
 
 
@@ -76,6 +146,21 @@ export default function reducer(state = initialState, action) {
       case GET_POST_DETAIL: {
         newState = {...state}
         newState[action.post.id] = action.post
+        return newState
+      }
+      case CREATE_POST: {
+        newState ={...state}
+        newState[action.newPost.id] = action.newPost
+        return newState
+      }
+      case UPDATE_POST:{
+        newState={...state}
+        newState[action.post.id] = action.post
+        return newState
+      }
+      case DELETE_POST:{
+        newState = {...state}
+        delete newState[action.postId]
         return newState
       }
 
