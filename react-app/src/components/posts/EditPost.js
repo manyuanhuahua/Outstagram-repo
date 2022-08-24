@@ -1,48 +1,51 @@
 import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams, useHistory} from "react-router-dom";
-import { createPostThunk } from "../../store/post";
+import { updatePostThunk } from "../../store/post";
 
-const CreatePostForm = () => {
+const EditPostForm = ({post,hideModal}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const session = useSelector(state => state.user);
 
-    const [description, setDescription] = useState('')
-    const [imageUrl, setImageUrl] = useState("")
+    const [description, setDescription] = useState(post.description)
+    const [imageUrl, setImageUrl] = useState(post.imageUrl)
 
-    const [imageUrlValidationErrors, setImageUrlValidationErrors] = useState([])
+    // const [imageUrlValidationErrors, setImageUrlValidationErrors] = useState([])
     const [errors, setErrors] = useState([])
 
-    useEffect(() => {
-        const errors =[];
-        if (imageUrl.length === 0) errors.push("Image is required.");
-        setImageUrlValidationErrors(errors);
-    }, [imageUrl])
+    // useEffect(() => {
+    //     const errors =[];
+    //     if (imageUrl.length === 0) errors.push("Image is required.");
+    //     setImageUrlValidationErrors(errors);
+    // }, [imageUrl])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
         const newPost = {
+            id:post.id,
             description,
             image_url:imageUrl
         };
-        dispatch(createPostThunk(newPost))
+        dispatch(updatePostThunk(newPost))
         .then(
             async (res) => {
             if ( res.errors ) {
                     setErrors(res.errors)
             }
             else {
+                hideModal()
                 history.push(`/posts/${res.id}`);
             }
+
         })
         }
 
         return (
             <div>
                 <div>
-                    <h2>Create New Post</h2>
+                    <h2>Edit the Post</h2>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <ul>
@@ -50,19 +53,6 @@ const CreatePostForm = () => {
                         <li key={idx} >{error}</li>
                     ))}
                     </ul>
-                    <div>
-                        <label>Image Url</label>
-                        <input
-                        type={'text'}
-                        value={imageUrl}
-                        onChange={e => setImageUrl(e.target.value)}
-                         />
-                         {/* <>
-                         {imageUrlValidationErrors.map((error, idx) => (
-                            <li key={idx} className='create-group-error'>{error}</li>
-                        ))}
-                         </> */}
-                    </div>
                     <div>
                     <label>Description</label>
                         <input
@@ -72,11 +62,13 @@ const CreatePostForm = () => {
                          />
                     </div>
                     <div>
-                        <button>Share</button>
+                        <button type="submit">Done</button>
+                        <button type="button" onClick={()=>hideModal()}>Cancel</button>
+
                     </div>
                 </form>
                 <div>
-                    <button onClick={history.goBack}>Cancel</button>
+                    {/* <button onClick={history.goBack}>Cancel</button> */}
                 </div>
             </div>
         )
@@ -85,4 +77,4 @@ const CreatePostForm = () => {
 }
 
 
-export default CreatePostForm;
+export default EditPostForm;
