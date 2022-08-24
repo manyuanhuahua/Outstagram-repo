@@ -15,7 +15,7 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        dispatch(postActions.getOwnPostsThunk())
+        dispatch(postActions.getAllPostsThunk())
     }, [dispatch])
 
     return (
