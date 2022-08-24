@@ -10,11 +10,8 @@ const PostDetail = () => {
     // const session = useSelector(state => state.session.user);
     const [postIsLoaded, setPostIsLoaded] = useState(false);
 
-
-
-
     useEffect(() => {
-        dispatch(getPostDetailThunk(userId)).then(() => setPostIsLoaded(true));
+        dispatch(getPostDetailThunk(postId)).then(() => setPostIsLoaded(true));
     }, [dispatch]);
 
 
@@ -58,8 +55,6 @@ const PostDetail = () => {
                         <button>Post</button>
 
                         </form>
-
-
                     </div>
 
                 </div>
@@ -71,4 +66,4 @@ const PostDetail = () => {
 }
 
 
-export default GetOthersPosts;
+export default PostDetail;

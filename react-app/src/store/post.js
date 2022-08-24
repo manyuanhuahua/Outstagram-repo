@@ -2,6 +2,7 @@
 const GET_OWN_POSTS = "post/GET_OWN_POSTS"
 const GET_OTHERS_POSTS = "post/GET_OTHERS_POSTS"
 const GET_POST_DETAIL = "post/GET_POST_DETAIL"
+const CREATE_POST = "post/CREATE_POST"
 
 
 const getOwnPosts = (posts) => {
@@ -22,6 +23,13 @@ const getPostDetail = (post) => {
   return {
     type: GET_POST_DETAIL,
     post
+  }
+}
+
+const createPost = (newPost) => {
+  return {
+    type: CREATE_POST,
+    newPost
   }
 }
 
@@ -56,6 +64,23 @@ export const getPostDetailThunk = (postId) => async dispatch => {
   return response
 }
 
+export const createPostThunk = (newPost) => async dispatch => {
+  const response = await fetch('/api/posts/new', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(newPost)
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createPost(data))
+    return data
+  }
+
+  return response
+}
+
 
 
 
@@ -76,6 +101,11 @@ export default function reducer(state = initialState, action) {
       case GET_POST_DETAIL: {
         newState = {...state}
         newState[action.post.id] = action.post
+        return newState
+      }
+      case CREATE_POST: {
+        newState ={...state}
+        newState[action.newPost.id] = action.newPost
         return newState
       }
 
