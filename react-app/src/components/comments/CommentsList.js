@@ -14,6 +14,8 @@ const GetComments = ({postId}) => {
         dispatch(getCommentsThunk(postId)).then(()=>setCommentsIsLoaded(true))
     },[dispatch])
 
+
+
     return (commentsIsLoaded &&
 
         <div>
@@ -25,7 +27,12 @@ const GetComments = ({postId}) => {
                 </div>
                 <div>
                     <div>{comment.user.username}{comment.content}</div>
-                    <div>{comment.createAt}{comment.totalLikes}like</div>
+                    <div>{comment.createAt}</div>
+                    <div>{!!comment.totalLikes && (comment.totalLikes === 1 ?  <p>1 like</p> : <p>{comment.totalLikes} likes</p>)}</div>
+                    <div>
+                        {session.id === comment.userId && <button onClick={() => handleDelete(comment.id)}>Delete Comment</button>}
+                    </div>
+
                 </div>
             <div>
                 <button>heart sign</button>
