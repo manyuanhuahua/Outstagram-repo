@@ -6,7 +6,7 @@ import { createPostThunk } from "../../store/post";
 const CreatePostForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const session = useSelector(state => state.user);
+    const session = useSelector(state => state.session.user);
 
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState("")

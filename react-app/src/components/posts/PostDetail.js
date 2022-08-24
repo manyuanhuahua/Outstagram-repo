@@ -4,6 +4,8 @@ import {NavLink, useHistory, useParams} from "react-router-dom";
 import { getPostDetailThunk  } from "../../store/post"
 import EditPostModal from "../modals/EditPostModal";
 import { deletePostThunk  } from "../../store/post"
+import GetComments from "../comments/CommentsList";
+import CreateCommentForm from "../comments/CreateComment";
 
 const PostDetail = () => {
     const dispatch = useDispatch();
@@ -13,6 +15,7 @@ const PostDetail = () => {
     const session = useSelector(state => state.session.user);
     const [postIsLoaded, setPostIsLoaded] = useState(false);
     const [editModal, setEditModal] = useState(false);
+
 
     useEffect(() => {
         dispatch(getPostDetailThunk(postId)).then(() => setPostIsLoaded(true));
@@ -59,27 +62,25 @@ const PostDetail = () => {
                                     <p>{post.user.username} {post.description}</p>
                                     <p>time after created</p>
                                 </div>
-                                <div>comments</div>
+                                <div>
+                                    <GetComments postId={postId}/>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div><button>likes</button></div>
-                        <div><button>comment</button></div>
                         <p>{post.totalLikes}likes</p>
                         <p>{post.createdAt}</p>
                     </div>
                     <div>
-                        <form>
-                        <input type="textarea"></input>
-                        <button>Post</button>
+                        <CreateCommentForm postId={postId}/>
 
-                        </form>
                     </div>
 
                 </div>
            </div>
-           <div>Comments</div>
+          
 
  </>
     )
