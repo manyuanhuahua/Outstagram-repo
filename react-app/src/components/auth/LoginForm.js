@@ -25,6 +25,12 @@ const LoginForm = () => {
     }
   };
 
+  const demoLogIn = () => {
+    setEmail('demo@aa.io')
+    setPassword('password')
+
+  }
+
   // Password toggle handler
   const togglePassword = (e) => {
     e.preventDefault();
@@ -59,7 +65,7 @@ const LoginForm = () => {
   return (
     <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       {/* <img src={iphonePng} style={{ height: '750px', width: '352px', marginRight: '100px', zIndex: '1' }} /> */}
-      <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} style={{ marginRight: '125px' }} />
+      <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} alt='iPhone' style={{ marginRight: '125px' }} />
       <div className='login-form-container-div' style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           {/* <Carousel /> */}
@@ -91,6 +97,9 @@ const LoginForm = () => {
             </div>
             <div>
               <button type='submit' className='login-button'>Log In</button>
+            </div>
+            <div>
+              <button onClick={() => demoLogIn()} className='login-button'>Demo User Log In</button>
             </div>
             <div>
               {errors.map((error, ind) => (

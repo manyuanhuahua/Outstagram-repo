@@ -2,17 +2,30 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-
+import '../styles/navbar.css'
+import homeButton from '../Images/instagram-home-icon.png'
+import uploadButton from '../Images/upload-image-icon-instagram.svg'
+import ProfileButton from './profileButton';
+import logo from '../Images/Outstagram-text-login.png';
 
 const NavBar = () => {
+
+
+
   return (
-    <nav>
-      <ul>
-        <li>
+    <nav className='nav-bar'>
+      <NavLink to="/">
+        <img src={logo} style={{ height: '40px', position: 'relative', top: '10px', marginLeft: '20vw' }} />
+      </NavLink>
+      <div className='div-container'>
+        <div className='child-divs'>
           <NavLink to='/' exact={true} activeClassName='active'>
-            Home
+            <img style={{ height: '30px', width: '30px', cursor: 'pointer' }} src={homeButton} alt='home' />
           </NavLink>
-        </li>
+        </div>
+        <div className='child-divs'>
+          <img src={uploadButton} style={{ height: '50px', width: '50px', cursor: 'pointer' }} alt='upload' />
+        </div>
         {/* <li>
           <NavLink to='/login' exact={true} activeClassName='active'>
             Login
@@ -23,15 +36,18 @@ const NavBar = () => {
             Sign Up
           </NavLink>
         </li> */}
-        <li>
+        <div className='child-divs'>
+          <ProfileButton />
+        </div>
+        {/* <div className='child-divs'>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
-        </li>
-        <li>
+        </div> */}
+        {/* <div className='child-divs'>
           <LogoutButton />
-        </li>
-      </ul>
+        </div> */}
+      </div>
     </nav>
   );
 }
