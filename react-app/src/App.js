@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import { useSelector } from 'react-redux';
 import GetPosts from './components/posts/GetPosts'
 import GetOthersPosts from './components/posts/GetOthersPosts';
+import HomePage from './components/homePage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -55,7 +56,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <HomePage />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

@@ -1,6 +1,7 @@
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const SET_USERS = 'session/SET_USERS';
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -9,6 +10,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
+})
+
+const setUsers = (users) => ({
+  type: SET_USERS,
+
 })
 
 const initialState = { user: null };
@@ -71,7 +77,7 @@ export const logout = () => async (dispatch) => {
 
 
 export const signUp = (username, fullname, email, password) => async (dispatch) => {
-  
+
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     headers: {
