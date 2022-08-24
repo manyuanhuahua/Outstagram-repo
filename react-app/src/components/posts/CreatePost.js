@@ -19,7 +19,7 @@ const CreatePostForm = () => {
         if (imageUrl.length === 0) errors.push("Image is required.");
         setImageUrlValidationErrors(errors);
     }, [imageUrl])
-console.log("create a post-----------------")
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -27,16 +27,16 @@ console.log("create a post-----------------")
             description,
             image_url:imageUrl
         };
-        dispatch(createPostThunk(newPost)).then((res) => {
-            history.push(`/posts/${res.id}`);
-        }).catch(
+        dispatch(createPostThunk(newPost))
+        .then(
             async (res) => {
-                const data = await res.json();
-                if (data.errors) {
-                    setErrors(data.errors)
-                }
+            if ( res.errors ) {
+                    setErrors(res.errors)
             }
-        )
+            else {
+                history.push(`/posts/${res.id}`);
+            }
+        })
         }
 
         return (
@@ -80,7 +80,7 @@ console.log("create a post-----------------")
                 </div>
             </div>
         )
-    
+
 
 }
 

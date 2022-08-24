@@ -72,13 +72,14 @@ export const createPostThunk = (newPost) => async dispatch => {
   },
   body: JSON.stringify(newPost)
   });
+
   if (response.ok) {
     const data = await response.json();
     dispatch(createPost(data))
     return data
   }
-
-  return response
+  const res = await response.json()
+  return res
 }
 
 
