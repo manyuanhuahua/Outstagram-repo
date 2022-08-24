@@ -9,6 +9,21 @@ import json
 
 post_routes = Blueprint('posts', __name__)
 
+#get all posts
+@post_routes.route('/all')
+def get_all_posts_from_users():
+    posts = Post.query.all()
+    res = {}
+
+    for post in posts:
+        like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
+        post_dict = post.to_dict()
+        post_dict["likeStatus"] = True if len(like_status) > 0 else False
+        res[post.id] = post_dict
+
+    return {"Posts": res}
+
+
 #get all posts for the session user
 @post_routes.route('/user/session')
 @login_required
@@ -40,10 +55,10 @@ def get_others_posts(id):
 
 
 #get the detail from a selected post
-@post_routes.route('/<int:id>')
+@post_routes.route('/<int:postId>')
 @login_required
-def get_post_detail(id):
-    post = Post.query.get(id)
+def get_post_detail(postId):
+    post = Post.query.get(postId)
     if not post:
         return {'errors': ['post can not be found']},404
 
