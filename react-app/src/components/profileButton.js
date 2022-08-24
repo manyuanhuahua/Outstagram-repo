@@ -27,12 +27,12 @@ function ProfileButton() {
   return (
     <div className="dropdown navLink">
       <span style={{ color: '#cccccc', padding: '0 6px' }}>
-        <img style={{ height: '25px', width: '25px', borderRadius: '50%' }} src={sessionUser.profile_image} alt='icon' />
+        <img className="profile-dropdown-image" style={{ height: '25px', width: '25px', borderRadius: '50%' }} src={sessionUser.profile_image} alt='icon' />
       </span>
       <div className="dropdown-content">
         <button className="logOutButton" style={{ cursor: 'pointer' }}>
-          <img style={{ height: '15px', width: '15px', marginRight: '5px' }} src={sessionUser.profile_image} alt='icon' />
-          Profile
+          <img style={{ height: '20px', width: '20px', marginRight: '5px', borderRadius: '50%' }} src={sessionUser.profile_image} alt='icon' />
+          <div style={{ fontWeight: '600' }}>Profile</div>
         </button>
         <div><LogoutButton /></div>
       </div>
