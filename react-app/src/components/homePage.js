@@ -9,6 +9,7 @@ const HomePage = () => {
     const posts = Object.values(useSelector(state => state.post))
 
 
+
     useEffect(() => {
         dispatch(postActions.getOwnPostsThunk())
     }, [dispatch])
