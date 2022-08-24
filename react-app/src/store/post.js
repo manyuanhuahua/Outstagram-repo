@@ -4,6 +4,8 @@ const GET_OTHERS_POSTS = "post/GET_OTHERS_POSTS"
 const GET_POST_DETAIL = "post/GET_POST_DETAIL"
 const CREATE_POST = "post/CREATE_POST"
 const UPDATE_POST = "post/UPDATE_POST"
+const DELETE_POST = "post/DELETE_POST"
+
 
 
 const getOwnPosts = (posts) => {
@@ -39,6 +41,14 @@ const updatePost = (post) =>{
     type:UPDATE_POST,
     post
   }
+}
+
+const deletePost = (postId) =>{
+  return {
+    type:DELETE_POST,
+    postId
+  }
+
 }
 
 export const getOwnPostsThunk = () => async dispatch => {
@@ -90,7 +100,7 @@ export const createPostThunk = (newPost) => async dispatch => {
 }
 
 export const updatePostThunk = (post)=> async dispatch =>{
-  console.log("post-------",post)
+
   const response = await fetch(`/api/posts/${post.id}`,{
     method:'PUT',
     headers: {
@@ -105,6 +115,17 @@ export const updatePostThunk = (post)=> async dispatch =>{
     // return res
   }
   return res
+}
+
+export const deletePostThunk = (postId) => async dispatch =>{
+  const response = await fetch(`/api/posts/${postId}`,{
+    method:'DELETE',
+  });
+  if(response.ok){
+    dispatch(deletePost(postId))
+
+  }
+  return response
 }
 
 
@@ -135,6 +156,11 @@ export default function reducer(state = initialState, action) {
       case UPDATE_POST:{
         newState={...state}
         newState[action.post.id] = action.post
+        return newState
+      }
+      case DELETE_POST:{
+        newState = {...state}
+        delete newState[action.postId]
         return newState
       }
 
