@@ -1,5 +1,6 @@
 const GET_COMMENTS = "comment/GET_COMMENTS"
 const CREATE_COMMENT = "comment/CREATE_COMMENT"
+const DELETE_COMMENT = "comment/DELETE_COMMENT"
 
 
 const getComments = (comments) =>{
@@ -13,6 +14,13 @@ const createComment = (comment) =>{
   return {
     type:CREATE_COMMENT,
     comment
+  }
+}
+
+const deleteComment = (commentId) => {
+  return {
+    type: DELETE_COMMENT,
+    commentId
   }
 }
 
@@ -41,6 +49,15 @@ export const createCommentThunk = (postId,comment)=> async dispatch =>{
   return data
 }
 
+export const deleteCommentThunk = (postId, commentId) => async dispatch => {
+  const response = await fetch(`/api/posts/${postId}/comments/${commentId}`, {
+    method:'DELETE'
+  })
+  if (response.ok) {
+    dispatch(deleteComment(commentId))
+  }
+  return response
+}
 
 const initialState = { };
 
@@ -54,6 +71,11 @@ export default function reducer(state = initialState, action) {
       case CREATE_COMMENT:{
         newState = {...state}
         newState[action.comment.id]=action.comment
+        return newState
+      }
+      case DELETE_COMMENT: {
+        newState = {...state}
+        delete newState[action.commentId]
         return newState
       }
       default:
