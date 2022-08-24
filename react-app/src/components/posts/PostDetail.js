@@ -1,24 +1,36 @@
 import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useHistory, useParams} from "react-router-dom";
 import { getPostDetailThunk  } from "../../store/post"
+import EditPostModal from "../modals/EditPostModal";
+import { deletePostThunk  } from "../../store/post"
 
 const PostDetail = () => {
     const dispatch = useDispatch();
     const {postId} = useParams();
+    const history = useHistory()
     const post = useSelector(state => state.post[postId]);
-    // const session = useSelector(state => state.session.user);
+    const session = useSelector(state => state.session.user);
     const [postIsLoaded, setPostIsLoaded] = useState(false);
-
-
-
+    const [editModal, setEditModal] = useState(false);
 
     useEffect(() => {
-        dispatch(getPostDetailThunk(userId)).then(() => setPostIsLoaded(true));
+        dispatch(getPostDetailThunk(postId)).then(() => setPostIsLoaded(true));
     }, [dispatch]);
+    let showButton = false
+    // const [showButton, setShowButton] = useState(false);
+    if (postIsLoaded && post && (session.id === post.userId)){
+       showButton = true
+    }
 
-
-    return (postIsLoaded && <>
+    const handleDelete = async (e)=>{
+        e.preventDefault();
+       return dispatch(deletePostThunk(postId)).then(()=>history.push('/session/posts'))
+    }
+    if(!post){
+        return null
+    }
+    return (postIsLoaded && post && <>
             <div>
                 <div>
                     <div>
@@ -29,17 +41,22 @@ const PostDetail = () => {
                     <div>
                         <div><img alt="" src={post.user.profileImage}></img></div>
                         <div>{post.user.username}</div>
-                        <div>
-                            <button>Delete</button>
-                            <button>Edit</button>
-                        </div>
+                        {showButton && (<div>
+                            <button onClick={handleDelete}>Delete</button>
+
+                            <button onClick={()=>setEditModal(true)}>Edit</button>
+                            {editModal && <EditPostModal post={post} setShowModal={setEditModal}/>}
+
+
+
+                        </div>)}
                     </div>
                     <div>
                         <div>
                             <div><img alt="" src={post.user.profileImage}></img></div>
                             <div>
                                 <div>
-                                    <p>{post.user.username} {post.content}</p>
+                                    <p>{post.user.username} {post.description}</p>
                                     <p>time after created</p>
                                 </div>
                                 <div>comments</div>
@@ -58,8 +75,6 @@ const PostDetail = () => {
                         <button>Post</button>
 
                         </form>
-
-
                     </div>
 
                 </div>
@@ -71,4 +86,4 @@ const PostDetail = () => {
 }
 
 
-export default GetOthersPosts;
+export default PostDetail;
