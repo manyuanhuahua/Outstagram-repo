@@ -20,7 +20,7 @@ const HomePage = () => {
             {posts &&
                 posts.map(post =>
                     <li>
-                    {console.log(post)}
+                    
                     <img style={{height: '50px', width: '50px'}} src={post.imageUrl} alt='image'/>
                     <p>{post.description}</p>
                     </li>

@@ -162,6 +162,7 @@ def create_comments(postId):
         comment.postId = postId
         db.session.add(comment)
         db.session.commit()
+        # print("comment.totalLikes-------------", comment.comment_like_users)
 
         res = comment.to_dict()
         res["likeStatus"] = 0

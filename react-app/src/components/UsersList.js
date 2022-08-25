@@ -17,7 +17,7 @@ function UsersList() {
     // fetchData();
     dispatch(userActions.getAllUsers())
   }, [dispatch, users]);
-  console.log(users)
+ 
 
   const userComponents = users.map((user) => {
     return (
