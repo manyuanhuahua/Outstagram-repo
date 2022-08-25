@@ -1,10 +1,60 @@
+.comment-details-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
 .comment-list-comment-container {
     margin: 20px 0px 20px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.comment-list-user-content {
+    display: flex;
+    flex-direction: row;
+
+}
+
 .comment-list-user-image {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.comment-list-username-like {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-list-username-content,
+.comment-list-create-like
+ {
+    display: flex;
+    flex-direction: row;
+}
+
+.comment-list-username {
+    font-weight: bold;
+}
+
+.comment-list-create,
+.comment-list-username {
+    margin-right: 10px;
+}
+
+
+.comment-list-delete-like {
+    display: flex;
+    flex-direction: row;
+}
+.comment-list-delete-button {
+    margin-right: 10px;
 }
 
 .comment-liked {
