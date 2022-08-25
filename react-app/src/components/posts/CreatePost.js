@@ -2,8 +2,9 @@ import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams, useHistory} from "react-router-dom";
 import { createPostThunk } from "../../store/post";
+import "../../styles/createForm.css"
 
-const CreatePostForm = () => {
+const CreatePostForm = ({hideModal}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const session = useSelector(state => state.session.user);
@@ -34,13 +35,14 @@ const CreatePostForm = () => {
                     setErrors(res.errors)
             }
             else {
+                hideModal()
                 history.push(`/posts/${res.id}`);
             }
         })
         }
 
         return (
-            <div>
+            <div className="create-post-container">
                 <div>
                     <h2>Create New Post</h2>
                 </div>
@@ -50,7 +52,9 @@ const CreatePostForm = () => {
                         <li key={idx} >{error}</li>
                     ))}
                     </ul>
-                    <div>
+                    <div className="input-container">
+
+                    <div className="input-part">
                         <label>Image Url</label>
                         <input
                         type={'text'}
@@ -71,12 +75,13 @@ const CreatePostForm = () => {
                         onChange={e => setDescription(e.target.value)}
                          />
                     </div>
+                    </div>
                     <div>
                         <button>Share</button>
                     </div>
                 </form>
                 <div>
-                    <button onClick={history.goBack}>Cancel</button>
+                    <button onClick={hideModal}>Cancel</button>
                 </div>
             </div>
         )
