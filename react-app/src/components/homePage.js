@@ -78,9 +78,9 @@ const HomePage = () => {
                         )
                     }
                 </div>
-                <ul className="follower-list" style={{ display: 'flex', alignItems: 'flex-start' }}>
+                {/* <ul className="follower-list" style={{ display: 'flex', alignItems: 'flex-start' }}>
                     <UsersList />
-                </ul>
+                </ul> */}
             </div>
 
         </>
