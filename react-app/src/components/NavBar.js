@@ -24,7 +24,10 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className='child-divs'>
+          <NavLink to={'/posts/new'} exact={true}>
           <img src={uploadButton} style={{ height: '50px', width: '50px', cursor: 'pointer' }} alt='upload' />
+          </NavLink>
+
         </div>
         {/* <li>
           <NavLink to='/login' exact={true} activeClassName='active'>
