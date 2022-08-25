@@ -1,0 +1,42 @@
+.edit-form-header {
+    text-align: center;
+}
+
+.edit-form-container {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 0;
+    /* position: absolute; */
+    /* margin: 30px; */
+    box-sizing: border-box;
+
+    /* padding: 25px; */
+}
+
+.edit-post-form {
+    margin-top:0;
+    margin-bottom:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.edit-form-content {
+    margin-bottom: 10px;
+}
+
+.edit-form-buttons button{
+    margin: 0 10px;
+}
+
+.edit-form-content input {
+    border: 1px solid black;
+    border-radius: 3px;
+}
