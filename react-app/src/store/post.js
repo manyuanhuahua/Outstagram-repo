@@ -1,4 +1,3 @@
-
 const GET_OWN_POSTS = "post/GET_OWN_POSTS"
 const GET_OTHERS_POSTS = "post/GET_OTHERS_POSTS"
 const GET_POST_DETAIL = "post/GET_POST_DETAIL"
@@ -6,6 +5,9 @@ const CREATE_POST = "post/CREATE_POST"
 const UPDATE_POST = "post/UPDATE_POST"
 const DELETE_POST = "post/DELETE_POST"
 
+const LIKE_POST = "post/LIKE_POST"
+
+const GET_ALL_POSTS = 'post/GET_ALL_POSTS'
 
 
 const getOwnPosts = (posts) => {
@@ -36,19 +38,34 @@ const createPost = (newPost) => {
   }
 }
 
-const updatePost = (post) =>{
+const updatePost = (post) => {
   return {
-    type:UPDATE_POST,
+    type: UPDATE_POST,
     post
   }
 }
 
-const deletePost = (postId) =>{
+const deletePost = (postId) => {
   return {
-    type:DELETE_POST,
+    type: DELETE_POST,
     postId
   }
+}
 
+const likePost = (postId, totalLikes, likeStatus) => {
+  return {
+    type: LIKE_POST,
+    postId,
+    totalLikes,
+    likeStatus
+  }
+}
+
+const getAllPosts = (posts) => {
+  return {
+    type: GET_ALL_POSTS,
+    posts
+  }
 }
 
 export const getOwnPostsThunk = () => async dispatch => {
@@ -69,7 +86,15 @@ export const getOthersPostsThunk = (id) => async dispatch => {
   }
 
   return response
+}
+
+export const getAllPostsThunk = () => async dispatch => {
+  const response = await fetch('/api/posts/all');
+  if (response.ok) {
+    const posts = await response.json()
+    dispatch(getAllPosts(posts))
   }
+}
 
 export const getPostDetailThunk = (postId) => async dispatch => {
   const response = await fetch(`/api/posts/${postId}`);
@@ -86,8 +111,8 @@ export const createPostThunk = (newPost) => async dispatch => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(newPost)
+    },
+    body: JSON.stringify(newPost)
   });
 
   if (response.ok) {
@@ -99,17 +124,17 @@ export const createPostThunk = (newPost) => async dispatch => {
   return res
 }
 
-export const updatePostThunk = (post)=> async dispatch =>{
+export const updatePostThunk = (post) => async dispatch => {
 
-  const response = await fetch(`/api/posts/${post.id}`,{
-    method:'PUT',
+  const response = await fetch(`/api/posts/${post.id}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(post)
+    },
+    body: JSON.stringify(post)
   });
   const res = await response.json()
-  if(response.ok){
+  if (response.ok) {
     // const editedPost = await response.json();
     dispatch(updatePost(res));
     // return res
@@ -117,22 +142,39 @@ export const updatePostThunk = (post)=> async dispatch =>{
   return res
 }
 
-export const deletePostThunk = (postId) => async dispatch =>{
-  const response = await fetch(`/api/posts/${postId}`,{
-    method:'DELETE',
+export const deletePostThunk = (postId) => async dispatch => {
+  const response = await fetch(`/api/posts/${postId}`, {
+    method: 'DELETE',
   });
-  if(response.ok){
+  if (response.ok) {
     dispatch(deletePost(postId))
 
   }
   return response
 }
 
+export const likePostThunk = (postId) => async dispatch => {
+  const response = await fetch(`/api/posts/${postId}/likes`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({})
+  });
+  if (response.ok) {
+    const data = await response.json();
+
+    dispatch(likePost(postId, data.totalLikes, data.likeStatus ))
+  }
+  return response
+}
 
 
-const initialState = { };
+
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
+
     let newState;
     switch (action.type) {
       case GET_OWN_POSTS: {
@@ -163,8 +205,20 @@ export default function reducer(state = initialState, action) {
         delete newState[action.postId]
         return newState
       }
+      case LIKE_POST: {
+        newState = {...state}
+        newState[action.postId] = {...newState[action.postId], totalLikes:action.totalLikes, likeStatus: action.likeStatus }
+        return newState
+      }
+      case GET_ALL_POSTS:
+        newState = { ...state }
+
+        Object.values(action.posts.Posts).forEach(post => {
+          newState[post.id] = post
+        })
+        return newState
 
       default:
         return state;
-    }
   }
+}

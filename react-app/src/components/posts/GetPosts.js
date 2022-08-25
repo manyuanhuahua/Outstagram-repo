@@ -2,6 +2,7 @@ import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams} from "react-router-dom";
 import { getOwnPostsThunk } from "../../store/post"
+import "../../styles/profilePage.css"
 
 
 const GetPosts = () => {
@@ -16,36 +17,34 @@ const GetPosts = () => {
         dispatch(getOwnPostsThunk()).then(() => setPostsIsLoaded(true));
     }, [dispatch]);
 
-    return (postsIsLoaded && <>
-           <div>
-                <div>
-                    <div>
-                    <img alt="" src={session.profile_image}></img>
-                    </div>
+    return (postsIsLoaded && <div className="section">
+           <div className="top-container">
+                 <div className="left-part">
+                    <img className="profile-img" alt="" src={session.profile_image}></img>
                 </div>
-                <div>
-                    <p>{session.username}</p>
-                    <p>{session.total_posts} posts</p>
-                    <p>{session.total_followers} followers</p>
-                    <p>{session.total_followings} followings</p>
-                    <p>{session.fullname}</p>
+
+                <div className="right-part">
+                    <h2 className="top-name">{session.username}</h2>
+                    <div className="mid-nums">
+                        <p><span>{session.total_posts}</span>posts</p>
+                        <p><span>{session.total_followers}</span>followers</p>
+                        <p><span>{session.total_followings}</span>followings</p>
+                    </div>
+                    <div className="bottom-fullname">{session.fullname}</div>
                 </div>
            </div>
-           <div>POSTS</div>
-           <div>{ postsList.map(post =>
-            (
-            <div>
-            <div><img alt="" src={post.imageUrl}></img></div>
-            <div>
-                <p>{post.totalLikes}</p>
-                <p>{post.totalComments}</p>
-            </div>
+           <div className="mid-container">POSTS</div>
+           <div className="bottom-container">
+            { postsList.map(post =>(
+            <div className="img-container">
+                    <img className="post-img" alt="" src={post.imageUrl}></img>
+                    <p>{post.totalLikes}</p>
+                    <p>{post.totalComments}</p>
            </div>)
            )
            }
-
            </div>
-    </>)
+    </div>)
 }
 
 

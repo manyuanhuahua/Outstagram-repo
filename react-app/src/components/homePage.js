@@ -15,11 +15,12 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        dispatch(postActions.getOwnPostsThunk())
+        dispatch(postActions.getAllPostsThunk())
     }, [dispatch])
 
     return (
         <>
+
             <div className="home-page-container">
                 <div className="posts-list">
                     {posts &&
@@ -27,8 +28,10 @@ const HomePage = () => {
                             <div className="post-wrapper">
                                 {console.log(post)}
                                 <div className="post-header-wrapper">
-                                    <img src={post.user.profileImage} alt="user-profile-pic" style={{ height: '32px', width: '32px', borderRadius: '50%' }} />
-                                    <NavLink className="post-header-username" to={`/users/${post.user.id}`}>
+                                    <NavLink to={`/users/${post.userId}`}>
+                                        <img src={post.user.profileImage} alt="user-profile-pic" style={{ height: '32px', width: '32px', borderRadius: '50%' }} />
+                                    </NavLink>
+                                    <NavLink className="post-header-username" to={`/users/${post.userId}`}>
                                         <div>{post.user.username}</div>
                                     </NavLink>
                                 </div>
@@ -43,7 +46,7 @@ const HomePage = () => {
                                     <div className="post-like-counter">{post.totalLikes} likes</div>
                                 </div>
                                 <div className="post-body-username-description-wrapper">
-                                    <NavLink className="post-header-username" to={`/users/${post.user.id}`}>
+                                    <NavLink className="post-header-username" to={`/users/${post.userId}`}>
                                         <div>{post.user.username}</div>
                                     </NavLink>
                                     <div className="post-body-description">{post.description}</div>
@@ -59,6 +62,7 @@ const HomePage = () => {
                     <UsersList />
                 </ul>
             </div>
+
         </>
     )
 }

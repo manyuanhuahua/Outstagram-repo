@@ -9,7 +9,7 @@ function UsersList() {
   const users = Object.values(useSelector(state => state.session.users))
   const [isLoaded, setIsLoaded] = useState(false);
 
-  console.log(users)
+
 
   const userComponents = users.map((user) => {
     return (

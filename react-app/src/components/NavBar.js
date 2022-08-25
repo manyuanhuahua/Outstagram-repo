@@ -15,7 +15,7 @@ const NavBar = () => {
   return (
     <nav className='nav-bar'>
       <NavLink to="/">
-        <img src={logo} style={{ height: '40px', position: 'relative', top: '10px', marginLeft: '25vw' }} />
+        <img src={logo} style={{ height: '40px', position: 'relative', top: '10px', marginLeft: '20vw' }} />
       </NavLink>
       <div className='div-container'>
         <div className='child-divs'>
