@@ -37,7 +37,10 @@ const GetOthersPosts = () => {
             <div className="right-part">
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <h2 className="top-name">{postsList[0].user.username}</h2>
-                    <button style={{ fontSize: '14px', marginLeft: '60px', width: '95px', heigth: '35px' }} className="login-button" onClick={() => handleFollows(userId)}>{user.follow_status === 1 ? 'Unfollow' : 'Follow'}</button>
+                    {session.id !== user.id && (
+                        <button style={{ fontSize: '14px', marginLeft: '60px', width: '95px', heigth: '35px' }} className="login-button" onClick={() => handleFollows(userId)}>{user.follow_status === 1 ? 'Unfollow' : 'Follow'}</button>
+                    )
+                    }
                 </div>
                 <div className="mid-nums">
                     <p><span>{postsList[0].user.total_posts}</span>posts</p>
@@ -55,8 +58,8 @@ const GetOthersPosts = () => {
                         <img className="post-img" alt="" src={post.imageUrl} />
                     </NavLink>
                     <div className="hover-text">
-                        <p>{post.totalLikes}</p>
-                        <p>{post.totalComments}</p>
+                        {/* <p>{post.totalLikes}</p>
+                        <p>{post.totalComments}</p> */}
                     </div>
                 </div>)
             )

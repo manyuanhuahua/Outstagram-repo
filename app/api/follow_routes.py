@@ -1,4 +1,4 @@
-from crypt import methods
+# from crypt import methods
 from curses.ascii import US
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user

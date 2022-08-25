@@ -1,8 +1,9 @@
 .section {
     max-width: 935px;
-    margin:0 auto 30px;
+    margin: 0 auto 30px;
     width: 100%;
 }
+
 .top-container {
     display: flex;
     position: relative;
@@ -16,7 +17,8 @@
     align-items: center;
     margin-right: 60px;
 }
-.top-container .left-part .profile-img{
+
+.top-container .left-part .profile-img {
     background: red;
     width: 150px;
     height: 150px;
@@ -32,8 +34,8 @@
 
 }
 
-.top-container .right-part .top-name{
-    margin-top:10px
+.top-container .right-part .top-name {
+    margin-top: 10px
 }
 
 
@@ -43,47 +45,60 @@
     justify-content: space-evenly;
 }
 
-.top-container .right-part .mid-nums span{
+.top-container .right-part .mid-nums span {
     letter-spacing: 1px;
-    margin-right:5px;
+    margin-right: 5px;
     font-weight: bold;
 }
 
 .top-container .right-part .bottom-fullname {
-    margin-right:5px;
+    margin-right: 5px;
     font-weight: bold;
 }
-.top-container .right-part .mid-nums p{
+
+.top-container .right-part .mid-nums p {
     margin-right: 40px;
     margin-bottom: 20px;
 }
 
 .mid-container {
     margin: 50px 0 20px 0;
-    padding-top:15px;
-    border-top:1px solid #8e8e8e;
-    width:100%;
+    padding-top: 15px;
+    border-top: 1px solid #8e8e8e;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .bottom-container {
-        display: grid;
-        max-width: 935px;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 20px;
-        align-content: space-between;
-        justify-content: space-around;
-        /* margin: 10px 200px; */
-        box-sizing: border-box;
-        /* margin-bottom: 30px; */
+    display: grid;
+    max-width: 935px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    align-content: space-between;
+    justify-content: space-around;
+    /* margin: 10px 200px; */
+    box-sizing: border-box;
+    /* margin-bottom: 30px; */
 
-    }
+}
 
 
 .post-img {
+    display: block;
     width: 293px;
     height: 293px;
     object-fit: cover;
+    opacity: 98%;
+    transition: 150ms all ease-in-out;
+    box-shadow: 0 0 3px 2px #ffffff, 0 0 0 #000000;
+}
+
+
+
+
+.post-img:hover {
+    opacity: 100%;
+    box-shadow: 0 0 3px 2px #000000d1, 0 0 0 #000000;
 }
