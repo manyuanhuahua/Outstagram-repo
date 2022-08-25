@@ -20,6 +20,7 @@ const HomePage = () => {
 
     return (
         <>
+
             <div className="home-page-container">
                 <div className="posts-list">
                     {posts &&
@@ -61,6 +62,7 @@ const HomePage = () => {
                     <UsersList />
                 </ul>
             </div>
+
         </>
     )
 }

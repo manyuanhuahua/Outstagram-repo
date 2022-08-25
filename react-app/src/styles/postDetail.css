@@ -1,0 +1,41 @@
+.post-detail-container {
+    display: flex;
+}
+
+.post-detail-post-info-container {
+    padding-left: 20px;
+}
+.post-detail-post-image {
+    width: 800px;
+    height: 800px;
+}
+
+.post-detail-post-image-top,
+.post-detail-post-image-bottom {
+    width: 800px;
+    height: 100px;
+    background-color: black;
+}
+
+.post-detail-user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.post-detail-post-info-first-container {
+    display: flex;
+}
+
+.post-detail-post-info-second-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-liked {
+    background-color: pink;
+}
+
+.post-unliked {
+    background-color: gray;
+}

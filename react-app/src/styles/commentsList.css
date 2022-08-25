@@ -1,0 +1,16 @@
+.comment-list-comment-container {
+    margin: 20px 0px 20px 0px;
+}
+.comment-list-user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.comment-liked {
+    background-color: brown;
+}
+
+.comment-unliked {
+    background-color: azure;
+}
