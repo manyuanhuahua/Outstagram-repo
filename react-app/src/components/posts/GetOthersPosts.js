@@ -35,14 +35,20 @@ const GetOthersPosts = () => {
                 </div>
            </div>
            <div className="mid-container">POSTS</div>
+           <div className="bottom-container">
            { postsList.map(post =>(
             <div className="img-container" key={post.id}>
-                <img className="post-img" alt="" src={post.imageUrl}></img>
+                <NavLink to={`/posts/${post.id}`}>
+                <img className="post-img" alt="" src={post.imageUrl} />
+                </NavLink>
+                <div className="hover-text">
                 <p>{post.totalLikes}</p>
                 <p>{post.totalComments}</p>
+                </div>
             </div>)
            )
            }
+           </div>
         </div>
 
     )

@@ -107,7 +107,7 @@ const PostDetail = () => {
                     </div>
                     <div>
                         <div><button onClick={() => handleLikes(postId)} className={(!!post.likeStatus) ? "post-liked": "post-unliked"}>likes post</button></div>
-                        <p>{!!post.totalLikes && (post.totalLikes === 1 ?  <p>1 like</p> : <p>{post.totalLikes} likes</p>)}</p>
+                        <div>{!!post.totalLikes && (post.totalLikes === 1 ?  <p>1 like</p> : <p>{post.totalLikes} likes</p>)}</div>
                         <p>{post.createdAt}</p>
                     </div>
                     <div>

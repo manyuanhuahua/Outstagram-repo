@@ -37,7 +37,9 @@ const GetPosts = () => {
            <div className="bottom-container">
             { postsList.map(post =>(
             <div className="img-container">
+                <NavLink to={`/posts/${post.id}`}>
                     <img className="post-img" alt="" src={post.imageUrl}></img>
+                </NavLink>
                     <p>{post.totalLikes}</p>
                     <p>{post.totalComments}</p>
            </div>)
