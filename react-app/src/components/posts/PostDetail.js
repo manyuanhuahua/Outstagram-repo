@@ -5,7 +5,9 @@ import EditPostModal from "../modals/EditPostModal";
 import {getPostDetailThunk, deletePostThunk, likePostThunk  } from "../../store/post"
 import GetComments from "../comments/CommentsList";
 import CreateCommentForm from "../comments/CreateComment";
-import "../../styles/postDetail.css"
+import "../../styles/postDetail.css";
+import likeIcon from '../../Images/instagram-like-icon.png';
+import likedIcon from '../../Images/PngItem_5229528.png';
 
 
 
@@ -81,9 +83,11 @@ const PostDetail = () => {
                 </div>
                 <div className="post-detail-post-info-container">
                     <div className="post-detail-post-info-first-container">
-                        <div><img alt="" src={post.user.profileImage} className="post-detail-user-image"></img></div>
-                        <div>{post.user.username}</div>
-                        {showButton && (<div>
+                        <div className="post-detail-post-user-info">
+                        <img alt="" src={post.user.profileImage} className="post-detail-user-image"></img>
+                        <div className="post-detail-post-username">{post.user.username}</div>
+                        </div>
+                        {showButton && (<div className="post-detail-buttons">
                             <button onClick={handleDelete}>Delete post</button>
 
                             <button onClick={()=>setEditModal(true)}>Edit post</button>
@@ -91,22 +95,32 @@ const PostDetail = () => {
 
                         </div>)}
                     </div>
-                    <div >
-                        <div className="post-detail-post-info-second-container">
+
+                    <div className="post-detail-post-info-second-container">
                             <div><img alt="" src={post.user.profileImage} className="post-detail-user-image"></img></div>
+
                             <div>
-                                <div>
-                                    <p>{post.user.username} {post.description}</p>
+                                    <p ><span className="post-detail-post-username">{post.user.username}</span> {post.description}</p>
+
                                     <p>{timeAfterCreated(post.createdAt)}</p>
-                                </div>
-                                <div>
-                                    <GetComments postId={postId}/>
-                                </div>
                             </div>
-                        </div>
+                    </div>
+
+
+                    <div className="post-detail-post-comments">
+                                    <GetComments postId={postId}/>
                     </div>
                     <div>
-                        <div><button onClick={() => handleLikes(postId)} className={(!!post.likeStatus) ? "post-liked": "post-unliked"}>likes post</button></div>
+                        {/* <div><button onClick={() => handleLikes(postId)} >likes post</button></div> */}
+                        <div onClick={() => handleLikes(postId)}>
+                                            {post.likeStatus === 1 ?
+                                                <img src={likedIcon} alt="like-button-icon"  style={{ height: '24px', width: '24px' }} />
+                                                :
+                                                <img src={likeIcon} alt="like-button-icon"  style={{ height: '24px', width: '24px' }} />
+                                            }
+
+                                        </div>
+
                         <div>{!!post.totalLikes && (post.totalLikes === 1 ?  <p>1 like</p> : <p>{post.totalLikes} likes</p>)}</div>
                         <p>{post.createdAt}</p>
                     </div>

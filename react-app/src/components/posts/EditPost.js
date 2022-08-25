@@ -2,6 +2,8 @@ import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams, useHistory} from "react-router-dom";
 import { updatePostThunk } from "../../store/post";
+import "../../styles/editForm.css"
+
 
 const EditPostForm = ({post,hideModal}) => {
     const dispatch = useDispatch();
@@ -44,29 +46,32 @@ const EditPostForm = ({post,hideModal}) => {
 
         return (
             <div>
-                <div>
+                <div className="edit-form-header">
                     <h2>Edit the Post</h2>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <ul>
-                    {errors.map((error, idx) => (
-                        <li key={idx} >{error}</li>
-                    ))}
-                    </ul>
-                    <div>
-                    <label>Description</label>
+            <div className="edit-form-container">
+                <form className="edit-post-form" onSubmit={handleSubmit}>
+
+                    <div className="edit-form-content">
+                    <label>Description: </label>
                         <input
                         type={'text'}
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                          />
                     </div>
-                    <div>
+                    <div className="edit-form-buttons">
                         <button type="submit">Done</button>
                         <button type="button" onClick={()=>hideModal()}>Cancel</button>
 
                     </div>
+                    <ul>
+                    {errors.map((error, idx) => (
+                        <li key={idx} >{error}</li>
+                    ))}
+                    </ul>
                 </form>
+                </div>
                 <div>
                     {/* <button onClick={history.goBack}>Cancel</button> */}
                 </div>

@@ -76,13 +76,12 @@ const CreatePostForm = ({hideModal}) => {
                          />
                     </div>
                     </div>
-                    <div>
-                        <button>Share</button>
-                    </div>
-                </form>
-                <div>
-                    <button onClick={hideModal}>Cancel</button>
+                    <div className="bottom-button">
+                        <button type="submit">Share</button>
+
+                        <button onClick={hideModal}>Cancel</button>
                 </div>
+                </form>
             </div>
         )
 
