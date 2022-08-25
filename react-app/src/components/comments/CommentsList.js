@@ -2,7 +2,10 @@ import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams} from "react-router-dom";
 import { getCommentsThunk, deleteCommentThunk, likeCommentThunk } from "../../store/comment";
-import "../../styles/commentsList.css"
+import "../../styles/commentsList.css";
+import likeIcon from '../../Images/instagram-like-icon.png';
+import likedIcon from '../../Images/PngItem_5229528.png';
+
 
 
 
@@ -24,7 +27,7 @@ const GetComments = ({postId}) => {
     }
 
     const handleLikes = async (postId, commentId) => {
-    
+
         return dispatch(likeCommentThunk(postId, commentId))
     }
 
@@ -63,26 +66,40 @@ const GetComments = ({postId}) => {
 
     return (commentsIsLoaded &&
 
-        <div>
+        <div className="comment-details-container">
             {commentsList.map((comment)=>
             (
             <div key={comment.id} className="comment-list-comment-container">
-                <div>
-                <img alt="" src={comment.user.profileImage} className="comment-list-user-image"/>
-                </div>
-                <div>
-                    <div>{comment.user.username}</div>
-                    <div>{comment.content}</div>
-                    <div>{timeAfterCreated(comment.createdAt)}</div>
-                    <div>{!!comment.totalLikes && (comment.totalLikes === 1 ?  <p>1 like</p> : <p>{comment.totalLikes} likes</p>)}</div>
+                <div className="comment-list-user-content">
                     <div>
-                        {session.id === comment.userId && <button onClick={() => handleDelete(postId, comment.id)}>Delete Comment</button>}
+                        <img alt="" src={comment.user.profileImage} className="comment-list-user-image"/>
+                    </div>
+                    <div className="comment-list-username-like">
+                        <div className="comment-list-username-content">
+                            <div className="comment-list-username">{comment.user.username}</div>
+                            <div>{comment.content}</div>
+                        </div>
+                        <div className="comment-list-create-like">
+                            <p className="comment-list-create">{timeAfterCreated(comment.createdAt)}</p>
+                            {!!comment.totalLikes && (comment.totalLikes === 1 ?  <p>1 like</p> : <p>{comment.totalLikes} likes</p>)}
+
+                        </div>
+                    </div>
+                </div>
+                <div className="comment-list-delete-like">
+                    {session.id === comment.userId && <button className="comment-list-delete-button" onClick={() => handleDelete(postId, comment.id)}>Delete Comment</button>}
+                    <div onClick={() => handleLikes(postId, comment.id)}>
+                                            {comment.likeStatus === 1 ?
+                                                <img src={likedIcon} alt="like-button-icon"  style={{ height: '16px', width: '16px' }} />
+                                                :
+                                                <img src={likeIcon} alt="like-button-icon"  style={{ height: '16px', width: '16px' }} />
+                                            }
                     </div>
 
                 </div>
-            <div>
-                <button onClick={() => {handleLikes(postId, comment.id)}} className={!!comment.likeStatus ? "comment-liked":"comment-unliked"}>heart sign</button>
-            </div>
+
+
+
         </div>)
             )}
         </div>

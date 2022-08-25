@@ -2,6 +2,7 @@ import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams, useHistory} from "react-router-dom";
 import { createCommentThunk } from "../../store/comment";
+import "../../styles/createCommentForm.css"
 
 const CreateCommentForm = ({postId}) =>{
     const dispatch = useDispatch();
@@ -32,9 +33,9 @@ const CreateCommentForm = ({postId}) =>{
     }
     return (
         <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="create-comment-form">
 
-        <label>Comment sign</label>
+        <label>Comment:</label>
         <div>
 
         <input
