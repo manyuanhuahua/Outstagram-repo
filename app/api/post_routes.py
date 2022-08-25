@@ -18,7 +18,7 @@ def get_all_posts_from_users():
     for post in posts:
         like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
         post_dict = post.to_dict()
-        post_dict["likeStatus"] = True if len(like_status) > 0 else False
+        post_dict["likeStatus"] = 1 if len(like_status) > 0 else 0
         res[post.id] = post_dict
 
     return {"Posts": res}
@@ -34,7 +34,7 @@ def get_all_posts():
     for post in posts:
         like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
         post_dict = post.to_dict()
-        post_dict["likeStatus"] = True if len(like_status) > 0 else False
+        post_dict["likeStatus"] = 1 if len(like_status) > 0 else 0
         res[post.id] = post_dict
 
     return {"Posts": res}
@@ -48,7 +48,7 @@ def get_others_posts(id):
     for post in posts:
         like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
         post_dict = post.to_dict()
-        post_dict["likeStatus"] = True if len(like_status) > 0 else False
+        post_dict["likeStatus"] = 1 if len(like_status) > 0 else 0
         res[post.id] = post_dict
 
     return {"Posts": res}
@@ -64,7 +64,7 @@ def get_post_detail(postId):
 
     like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
     post_dict = post.to_dict()
-    post_dict["likeStatus"] = True if len(like_status) > 0 else False
+    post_dict["likeStatus"] = 1 if len(like_status) > 0 else 0
     return post_dict
 
 
@@ -84,7 +84,7 @@ def create_post():
         db.session.commit()
 
         res=post.to_dict()
-        res["likeStatus"] = False
+        res["likeStatus"] = 0
         return res
     return  {'errors': ['image is required']}, 400
 
@@ -107,7 +107,7 @@ def update_post(postId):
     db.session.commit()
     like_status=list(filter(lambda user: user.id==current_user.id, post.post_like_users))
     res = post.to_dict()
-    res["likeStatus"] = True if len(like_status) > 0 else False
+    res["likeStatus"] = 1 if len(like_status) > 0 else 0
 
     return res
 
@@ -139,7 +139,7 @@ def get_all_comments(postId):
     for comment in comments:
         like_status = list(filter(lambda user: user.id==current_user.id, comment.comment_like_users))
         comment_dict = comment.to_dict()
-        comment_dict["likeStatus"] = True if len(like_status) > 0 else False
+        comment_dict["likeStatus"] = 1 if len(like_status) > 0 else 0
         res[comment.id] = comment_dict
     return {"Comments": res}
 
@@ -164,7 +164,7 @@ def create_comments(postId):
         db.session.commit()
 
         res = comment.to_dict()
-        res["likeStatus"] = False
+        res["likeStatus"] = 0
         return res
     return  {'errors': ['content is required']}, 400
 
@@ -191,7 +191,7 @@ def update_comments(postId, commentId):
         db.session.commit()
         like_status = list(filter(lambda user: user.id==current_user.id, comment.comment_like_users))
         res = comment.to_dict()
-        res["likeStatus"] = True if len(like_status) > 0 else False
+        res["likeStatus"] = 1 if len(like_status) > 0 else 0
         # res = {
         #     "id": comment.id,
         #     "userId": comment.userId,
@@ -301,20 +301,24 @@ def update_comment_likes(postId,commentId):
     if not post:
         return {'errors': ['post cannot be found']}, 400
     comment = Comment.query.get(commentId)
+
     if not comment:
         return {'errors': ['comment cannot be found']}, 400
-    like_users = list(comment.comment_like_users)
+
+    like_users = comment.comment_like_users
     current_user_like = list(filter(lambda user: user.id == current_user.id, like_users))
     if len(current_user_like) == 0:
         comment.comment_like_users.append(current_user)
+        print("comment.comment_like_users", comment.comment_like_users)
+
         db.session.commit()
     else:
         comment.comment_like_users.remove(current_user)
         db.session.commit()
 
 
-    updated_comment = Comment.query.get(postId)
-    updated_like_users = list(updated_comment.comment_like_users)
+    updated_comment = Comment.query.get(commentId)
+    updated_like_users = updated_comment.comment_like_users
     updated_current_user_like = list(filter(lambda user: user.id == current_user.id, updated_like_users))
     current_user_like_status = 1 if len(updated_current_user_like) else 0
     return {

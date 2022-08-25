@@ -1,8 +1,8 @@
 import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useParams} from "react-router-dom";
-import { getCommentsThunk } from "../../store/comment";
-import { deleteCommentThunk } from "../../store/comment";
+import { getCommentsThunk, deleteCommentThunk, likeCommentThunk } from "../../store/comment";
+
 
 const GetComments = ({postId}) => {
     const dispatch = useDispatch();
@@ -19,6 +19,11 @@ const GetComments = ({postId}) => {
     const handleDelete = async (postId,commentId)=>{
 
        return dispatch(deleteCommentThunk(postId, commentId))
+    }
+
+    const handleLikes = async (postId, commentId) => {
+        console.log("in handlelikes--------")
+        return dispatch(likeCommentThunk(postId, commentId))
     }
 
 
@@ -42,7 +47,7 @@ const GetComments = ({postId}) => {
 
                 </div>
             <div>
-                <button>heart sign</button>
+                <button onClick={() => {handleLikes(postId, comment.id)}}>heart sign</button>
             </div>
         </div>)
             )}

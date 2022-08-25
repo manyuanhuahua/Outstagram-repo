@@ -1,9 +1,8 @@
 import { useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useHistory, useParams} from "react-router-dom";
-import { getPostDetailThunk  } from "../../store/post"
 import EditPostModal from "../modals/EditPostModal";
-import { deletePostThunk  } from "../../store/post"
+import {getPostDetailThunk, deletePostThunk, likePostThunk  } from "../../store/post"
 import GetComments from "../comments/CommentsList";
 import CreateCommentForm from "../comments/CreateComment";
 
@@ -30,6 +29,12 @@ const PostDetail = () => {
         e.preventDefault();
        return dispatch(deletePostThunk(postId)).then(()=>history.push('/session/posts'))
     }
+
+    const handleLikes = async (postId) => {
+        return dispatch(likePostThunk(postId))
+    }
+
+
     if(!post){
         return null
     }
@@ -69,7 +74,7 @@ const PostDetail = () => {
                         </div>
                     </div>
                     <div>
-                        <div><button>likes</button></div>
+                        <div><button onClick={() => handleLikes(postId)}>likes post</button></div>
                         <p>{post.totalLikes}likes</p>
                         <p>{post.createdAt}</p>
                     </div>
@@ -80,7 +85,7 @@ const PostDetail = () => {
 
                 </div>
            </div>
-          
+
 
  </>
     )

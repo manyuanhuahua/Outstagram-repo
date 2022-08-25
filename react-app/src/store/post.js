@@ -5,6 +5,7 @@ const GET_POST_DETAIL = "post/GET_POST_DETAIL"
 const CREATE_POST = "post/CREATE_POST"
 const UPDATE_POST = "post/UPDATE_POST"
 const DELETE_POST = "post/DELETE_POST"
+const LIKE_POST = "post/LIKE_POST"
 
 
 
@@ -48,7 +49,15 @@ const deletePost = (postId) =>{
     type:DELETE_POST,
     postId
   }
+}
 
+const likePost = (postId, totalLikes, likeStatus) => {
+  return {
+    type: LIKE_POST,
+    postId,
+    totalLikes,
+    likeStatus
+  }
 }
 
 export const getOwnPostsThunk = () => async dispatch => {
@@ -128,6 +137,22 @@ export const deletePostThunk = (postId) => async dispatch =>{
   return response
 }
 
+export const likePostThunk = (postId) => async dispatch => {
+  const response = await fetch(`/api/posts/${postId}/likes`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({})
+  });
+  if (response.ok) {
+    const data = await response.json();
+
+    dispatch(likePost(postId, data.totalLikes, data.likeStatus ))
+  }
+  return response
+}
+
 
 
 const initialState = { };
@@ -161,6 +186,11 @@ export default function reducer(state = initialState, action) {
       case DELETE_POST:{
         newState = {...state}
         delete newState[action.postId]
+        return newState
+      }
+      case LIKE_POST: {
+        newState = {...state}
+        newState[action.postId] = {...newState[action.postId], totalLikes:action.totalLikes, likeStatus: action.likeStatus }
         return newState
       }
 

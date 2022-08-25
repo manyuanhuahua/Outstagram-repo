@@ -1,6 +1,7 @@
 const GET_COMMENTS = "comment/GET_COMMENTS"
 const CREATE_COMMENT = "comment/CREATE_COMMENT"
 const DELETE_COMMENT = "comment/DELETE_COMMENT"
+const LIKE_COMMENT = "comment/LIKE_COMMENT"
 
 
 const getComments = (comments) =>{
@@ -22,6 +23,16 @@ const deleteComment = (commentId) => {
     type: DELETE_COMMENT,
     commentId
   }
+}
+
+const likeComment = (commentId, totalLikes, likeStatus) => {
+  return {
+    type: LIKE_COMMENT,
+    commentId,
+    totalLikes,
+    likeStatus
+  }
+
 }
 
 export const getCommentsThunk = (postId) => async dispatch =>{
@@ -59,6 +70,22 @@ export const deleteCommentThunk = (postId, commentId) => async dispatch => {
   return response
 }
 
+export const likeCommentThunk = (postId, commentId) => async dispatch => {
+  const response = await fetch(`/api/posts/${postId}/comments/${commentId}/likes`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({})
+  });
+  if (response.ok) {
+    const data = await response.json();
+    console.log("data----------", data)
+    dispatch(likeComment(commentId, data.totalLikes, data.likeStatus ))
+  }
+  return response
+}
+
 const initialState = { };
 
 export default function reducer(state = initialState, action) {
@@ -76,6 +103,11 @@ export default function reducer(state = initialState, action) {
       case DELETE_COMMENT: {
         newState = {...state}
         delete newState[action.commentId]
+        return newState
+      }
+      case LIKE_COMMENT: {
+        newState = {...state}
+        newState[action.commentId] = {...newState[action.commentId], totalLikes:action.totalLikes, likeStatus: action.likeStatus }
         return newState
       }
       default:
