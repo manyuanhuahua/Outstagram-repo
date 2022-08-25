@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import UsersList from "./UsersList";
 import '../styles/homePage.css'
 import likeIcon from '../Images/instagram-like-icon.png';
+import likedIcon from '../Images/PngItem_5229528.png'
 import commentIcon from '../Images/instagram-comment-icon.png';
 import { likePostThunk } from "../store/post";
 
 const HomePage = () => {
     const dispatch = useDispatch()
     const posts = Object.values(useSelector(state => state.post))
-    const user = useSelector(state => state.user)
 
 
 
@@ -41,16 +41,21 @@ const HomePage = () => {
                                     </NavLink>
                                 </div>
                                 <img style={{ height: '572px', width: '470px' }} src={post.imageUrl} alt='image' />
-                                <div>
-                                    <div className="post-body-like-comment-icons" style={{ padding: '12px 6px', paddingBottom: '0px' }}>
+                                <div >
+                                    <div className="post-body-like-comment-icons" style={{ display: "flex", flexDirection: 'row', padding: '12px 6px', paddingBottom: '0px' }}>
                                         <div onClick={() => handleLikes(post.id)}>
-                                        <img src={likeIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                                            {post.likeStatus === 1 ?
+                                                <img src={likedIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                                                :
+                                                <img src={likeIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                                            }
+
                                         </div>
 
 
 
                                         <NavLink to={`/posts/${post.id}`}>
-                                        <img src={commentIcon} alt="comment-button-icon" className="comment-button-icon" style={{ height: '24px', width: '24px' }} />
+                                            <img src={commentIcon} alt="comment-button-icon" className="comment-button-icon" style={{ height: '24px', width: '24px' }} />
                                         </NavLink>
 
                                     </div>
@@ -65,15 +70,17 @@ const HomePage = () => {
                                     <div className="post-body-description">{post.description}</div>
                                 </div>
                                 <div className="post-body-comments-wrapper">
-                                    <div className="post-body-comments">{post.totalComments}</div>
+                                    <NavLink className="post-header-username" to={`/posts/${post.id}`}>
+                                        <div className="post-body-comments">{post.totalComments === 1 ? `View ${post.totalComments} comment` : `View all ${post.totalComments} comments`}</div>
+                                    </NavLink>
                                 </div>
                             </div>
                         )
                     }
                 </div>
-                <ul className="follower-list">
+                {/* <ul className="follower-list" style={{ display: 'flex', alignItems: 'flex-start' }}>
                     <UsersList />
-                </ul>
+                </ul> */}
             </div>
 
         </>
