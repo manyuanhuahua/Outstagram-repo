@@ -71,7 +71,10 @@ const HomePage = () => {
                                 </div>
                                 <div className="post-body-comments-wrapper">
                                     <NavLink className="post-header-username" to={`/posts/${post.id}`}>
-                                        <div className="post-body-comments">{post.totalComments === 1 ? `View ${post.totalComments} comment` : `View all ${post.totalComments} comments`}</div>
+                                        {!post.totalComments ?
+                                            <div className="post-body-comments">Add a comment</div> :
+                                            <div className="post-body-comments">{post.totalComments === 1 ? `View ${post.totalComments} comment` : `View all ${post.totalComments} comments`}</div>
+                                        }
                                     </NavLink>
                                 </div>
                             </div>

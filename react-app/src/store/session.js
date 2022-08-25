@@ -2,6 +2,8 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const SET_USERS = 'session/SET_USERS';
+const FOLLOW_USER = 'session/FOLLOW_USER';
+const SET_USER_PROFILE = 'session/SET_USER_PROFILE'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -17,7 +19,23 @@ const setUsers = (users) => ({
   payload: users
 })
 
+const setUserInfo = (user) => ({
+  type: SET_USER_PROFILE,
+  payload: user
+})
+
+const followUser = (userId, totalFollows, follow_status) => {
+  return {
+    type: FOLLOW_USER,
+    userId,
+    totalFollows,
+    follow_status
+  }
+}
+
 const initialState = { user: null, users: {} };
+
+
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -75,6 +93,14 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const grabUserInfo = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}`)
+
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(setUserInfo(data))
+  }
+}
 
 export const signUp = (username, fullname, email, password) => async (dispatch) => {
 
@@ -105,30 +131,49 @@ export const signUp = (username, fullname, email, password) => async (dispatch) 
   }
 }
 
-export const getAllUsers = () => async(dispatch) => {
+export const getAllUsers = () => async (dispatch) => {
   const response = await fetch('api/users/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     }
   })
+  const data = await response.json()
+  dispatch(setUsers(data))
+  return data
+}
+
+export const followUserThunk = (userId) => async dispatch => {
+  const response = await fetch(`/api/follows/following/${userId}`, {
+    method: 'PUT',
+    headers: { 'Content_Type': 'application/json' },
+  })
+  if (response.ok) {
     const data = await response.json()
-    dispatch(setUsers(data))
-    return data
+
+    dispatch(followUser(userId, data.totalFollows, data.follow_status))
+  }
+  return response
 }
 
 
 export default function reducer(state = initialState, action) {
-  const newState = {...state}
+  const newState = { ...state }
   switch (action.type) {
     case SET_USER:
       return { user: action.payload, users: state.users }
     case REMOVE_USER:
       return { user: null, users: state.users }
     case SET_USERS:
-        action.payload.users.forEach(user => {
+      action.payload.users.forEach(user => {
         newState.users[user.id] = user
       })
+      return newState
+    case SET_USER_PROFILE:
+      newState.users = action.payload
+      return newState
+    case FOLLOW_USER:
+      newState.users.followStatus = { ...newState[action.userId], totalFollows: action.totalFollows, follow_status: action.follow_status }
       return newState
     default:
       return state;
