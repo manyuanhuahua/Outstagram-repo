@@ -150,9 +150,9 @@ const SignUpForm = () => {
           <div>
             <button type='submit' className='login-button'>Sign Up</button>
           </div>
-          <div>
+          {/* <div>
             <button onClick={() => demoLogIn()} className='login-button'>Demo User Log In</button>
-          </div>
+          </div> */}
         </form>
         <div className='signup-button-loginform-container'>
           <label style={{ marginRight: '4px' }}>Have an account?</label>
