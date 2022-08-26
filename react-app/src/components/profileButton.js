@@ -32,7 +32,7 @@ function ProfileButton() {
       </span>
       <div className="dropdown-content">
         <button className="logOutButton" style={{ cursor: 'pointer' }}>
-          <NavLink to={'/session/posts'} exact={true}>
+          <NavLink to={`/users/${sessionUser.id}/posts`} exact={true}>
           <img style={{ height: '20px', width: '20px', marginRight: '5px', borderRadius: '50%' }} src={sessionUser.profile_image} alt='icon' />
           <div style={{ fontWeight: '600' }}>Profile</div>
           </NavLink>
