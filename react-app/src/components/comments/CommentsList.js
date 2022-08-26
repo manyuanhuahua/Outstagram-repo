@@ -90,8 +90,8 @@ const GetComments = ({ postId }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="comment-list-delete-like">
-                        {session.id === comment.userId && <button className="comment-list-delete-button" onClick={() => handleDelete(postId, comment.id)}>Delete Comment</button>}
+                    <div className="comment-list-delete-like" style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+                        {session.id === comment.userId && <button className="login-button" style={{ width: '70px', padding: '0px', margin: '0px', marginRight: '15px', marginBottom: '4px', fontSize: '12px', height: '25px' }} onClick={() => handleDelete(postId, comment.id)}>Delete</button>}
                         <div onClick={() => handleLikes(postId, comment.id)}>
                             {comment.likeStatus === 1 ?
                                 <img src={likedIcon} alt="like-button-icon" style={{ height: '16px', width: '16px', cursor: 'pointer' }} />

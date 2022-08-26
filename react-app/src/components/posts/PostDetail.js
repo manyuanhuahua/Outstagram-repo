@@ -92,9 +92,9 @@ const PostDetail = () => {
                         </NavLink>
                     </div>
                     {showButton && (<div className="post-detail-buttons">
-                        <button onClick={handleDelete}>Delete post</button>
+                        <button onClick={handleDelete} className="login-button" style={{ width: '100px' }}>Delete post</button>
 
-                        <button onClick={() => setEditModal(true)}>Edit post</button>
+                        <button onClick={() => setEditModal(true)} className="login-button" style={{ width: '90px' }}>Edit post</button>
                         {editModal && <EditPostModal post={post} setShowModal={setEditModal} />}
 
                     </div>)}
