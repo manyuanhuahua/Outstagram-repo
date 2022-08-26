@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
         backref=db.backref("following", lazy="dynamic", passive_deletes=True),
         #add cascade="all, delete" on Model and need test it the delete cascade
         lazy="dynamic",
-        cascade="all, delete"
+        # cascade="all, delete"
     )
 
     like_posts = db.relationship(

@@ -71,5 +71,6 @@ def update_follow_status(userId):
     updated_following = list(updated_user.followers)
     updated_current_user_follow = list(filter(lambda user: user.id == current_user.id, updated_following))
     current_user_follow_status = 1 if len(updated_current_user_follow) else 0
-    user_to_dict = updated_user.to_dict()
+    # user_to_dict = updated_user.to_dict()
+
     return {'userId': userId, 'follow_status': current_user_follow_status, 'totalFollows': updated_user.followers.count()}
