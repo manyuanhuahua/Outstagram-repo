@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
+  // const [passwordShown, setPasswordShown] = useState(false);
   const [showPasswordText, setShowPasswordText] = useState('Show' || 'hide')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
@@ -32,13 +32,13 @@ const LoginForm = () => {
   }
 
   // Password toggle handler
-  const togglePassword = (e) => {
-    e.preventDefault();
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setPasswordShown(!passwordShown);
-    setShowPasswordText(!showPasswordText)
-  };
+  // const togglePassword = (e) => {
+  //   e.preventDefault();
+  //   // When the handler is invoked
+  //   // inverse the boolean state of passwordShown
+  //   setPasswordShown(!passwordShown);
+  //   setShowPasswordText(!showPasswordText)
+  // };
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -85,11 +85,12 @@ const LoginForm = () => {
           <div>
             <div className='input-wrapper-div'>
               <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Password</label>
-              {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>}
+              {password && <button className="show-password-button" ></button>}
               <input
                 // style={{ width: '210px', maxWidth: '220px', overflowX: 'auto' }}
                 name='password'
-                type={passwordShown ? "text" : "password"}
+                type="password"
+                // placeholder='Password'
                 value={password}
                 onChange={updatePassword}
                 required

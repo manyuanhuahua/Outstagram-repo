@@ -23,12 +23,20 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
+      setErrors([]);
       const data = await dispatch(signUp(username, fullname, email, password));
       if (data) {
         setErrors(data)
       }
     }
+    return setErrors(['Passwords Must Match'])
   };
+
+  const demoLogIn = () => {
+    setEmail('demo@aa.io')
+    setPassword('password')
+
+  }
 
   const togglePassword = (e) => {
     e.preventDefault();
@@ -69,6 +77,7 @@ const SignUpForm = () => {
   if (user) {
     return <Redirect to='/' />;
   }
+
 
   return (
     <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -122,6 +131,7 @@ const SignUpForm = () => {
               name='password'
               onChange={updatePassword}
               value={password}
+              autoComplete="new-password"
               required
             ></input>
           </div>
@@ -133,11 +143,15 @@ const SignUpForm = () => {
               name='repeat_password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
+              autoComplete="new-password"
               required={true}
             ></input>
           </div>
           <div>
             <button type='submit' className='login-button'>Sign Up</button>
+          </div>
+          <div>
+            <button onClick={() => demoLogIn()} className='login-button'>Demo User Log In</button>
           </div>
         </form>
         <div className='signup-button-loginform-container'>

@@ -190,7 +190,7 @@ input {
   margin-top: 0px;
   /* margin-bottom: 8px; */
   border-radius: 2px;
-  outline: none;
+  /* outline: auto; */
 }
 
 form {
