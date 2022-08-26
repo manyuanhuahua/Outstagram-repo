@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
@@ -20,6 +20,16 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    let errors = [];
+    if (!username && username.length < 1 || username.length > 40) errors.push("Please enter a username of valid length")
+    if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
+    if (!email.includes("@") || !email.includes(".com")) errors.push("Email must be valid")
+    if (!fullname) errors.push("Please enter your name")
+    if (!password) errors.push("Please enter a password")
+    if (!repeatPassword) errors.push("Please repeat your password")
+    setErrors(errors)
+  }, [username, email, fullname, password, repeatPassword])
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
@@ -78,6 +88,7 @@ const SignUpForm = () => {
   }
 
 
+
   return (
     <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} style={{ marginRight: '125px' }} />
@@ -87,9 +98,9 @@ const SignUpForm = () => {
           <div className='text-div-sign-up'>
             Sign up to see photos from your friends.
           </div>
-          <div>
+          <div style={{ marginBottom: '8px' }}>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div style={{ textAlign: 'center', color: 'red', fontSize: '12px' }} key={ind}>{error}</div>
             ))}
           </div>
           <div className='input-wrapper-div'>
@@ -113,7 +124,7 @@ const SignUpForm = () => {
             ></input>
           </div>
           <div className='input-wrapper-div'>
-            <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Fullname</label>
+            <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Full Name</label>
             <input
               type='text'
               name='fullname'
