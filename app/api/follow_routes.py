@@ -58,19 +58,29 @@ def update_follow_status(userId):
     if not user:
         return {'errors': ['user cannot be found']}, 400
 
-    follow_users = list(user.followers)
-    current_user_follower = list(filter(lambda user: user.id == current_user.id, follow_users))
-    if len(current_user_follower) == 0:
-        user.followers.append(current_user)
+    # follow_users = list(user.followers)
+    # current_user_follower = list(filter(lambda user: user.id == current_user.id, follow_users))
+    if current_user in user.followers:
+        # user.followers.append(current_user)
+        # db.session.commit()
+
+        user.followers.remove(current_user)
         db.session.commit()
     else:
-        user.followers.remove(current_user)
+        # user.followers.remove(current_user)
+        # db.session.commit()
+        print("list(user.followers)--------------------------before", list(user.followers))
+        user.followers.append(current_user)
+        print("list(user.followers)--------------------------after", list(user.followers))
         db.session.commit()
 
     updated_user = User.query.get(userId)
-    updated_following = list(updated_user.followers)
-    updated_current_user_follow = list(filter(lambda user: user.id == current_user.id, updated_following))
-    current_user_follow_status = 1 if len(updated_current_user_follow) else 0
+    # updated_following = list(updated_user.followers)
+    # updated_current_user_follow = list(filter(lambda user: user.id == current_user.id, updated_following))
+    # current_user_follow_status = 1 if len(updated_current_user_follow) else 0
     # user_to_dict = updated_user.to_dict()
+    # current_user_follow_status = 1 if current_user in updated_following else 0
+    current_user_follow_status = 1 if current_user in updated_user.followers else 0
+    print("list(updated_user.followers)--------------------------", list(updated_user.followers))
 
     return {'userId': userId, 'follow_status': current_user_follow_status, 'totalFollows': updated_user.followers.count()}
