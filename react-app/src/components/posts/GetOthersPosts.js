@@ -62,7 +62,7 @@ const GetOthersPosts = () => {
                         <p>{post.totalComments}</p> */}
                     </div>
                 </div>)
-            )
+            ).reverse()
             }
         </div>
     </div>

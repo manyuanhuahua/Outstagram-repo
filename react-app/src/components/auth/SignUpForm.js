@@ -35,7 +35,6 @@ const SignUpForm = () => {
   const demoLogIn = () => {
     setEmail('demo@aa.io')
     setPassword('password')
-
   }
 
   const togglePassword = (e) => {

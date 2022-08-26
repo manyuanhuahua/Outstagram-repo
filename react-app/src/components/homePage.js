@@ -78,7 +78,7 @@ const HomePage = () => {
                                     </NavLink>
                                 </div>
                             </div>
-                        )
+                        ).reverse()
                     }
                 </div>
             </div>

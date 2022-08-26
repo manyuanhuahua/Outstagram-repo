@@ -1,10 +1,10 @@
-import { useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {NavLink, useParams, useHistory} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { createPostThunk } from "../../store/post";
 import "../../styles/createForm.css"
 
-const CreatePostForm = ({hideModal}) => {
+const CreatePostForm = ({ hideModal }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const session = useSelector(state => state.session.user);
@@ -16,7 +16,7 @@ const CreatePostForm = ({hideModal}) => {
     const [errors, setErrors] = useState([])
 
     useEffect(() => {
-        const errors =[];
+        const errors = [];
         if (imageUrl.length === 0) errors.push("Image is required.");
         setImageUrlValidationErrors(errors);
     }, [imageUrl])
@@ -26,64 +26,64 @@ const CreatePostForm = ({hideModal}) => {
         setErrors([]);
         const newPost = {
             description,
-            image_url:imageUrl
+            image_url: imageUrl
         };
         dispatch(createPostThunk(newPost))
-        .then(
-            async (res) => {
-            if ( res.errors ) {
-                    setErrors(res.errors)
-            }
-            else {
-                hideModal()
-                history.push(`/posts/${res.id}`);
-            }
-        })
-        }
+            .then(
+                async (res) => {
+                    if (res.errors) {
+                        setErrors(res.errors)
+                    }
+                    else {
+                        hideModal()
+                        history.push(`/posts/${res.id}`);
+                    }
+                })
+    }
 
-        return (
-            <div className="create-post-container">
-                <div>
-                    <h2>Create New Post</h2>
-                </div>
-                <form onSubmit={handleSubmit}>
-                    <ul>
+    return (
+        <div className="create-post-container">
+            <div>
+                <h2>Create New Post</h2>
+            </div>
+            <form onSubmit={handleSubmit} style={{ marginTop: '0px' }}>
+                <ul>
                     {errors.map((error, idx) => (
                         <li key={idx} >{error}</li>
                     ))}
-                    </ul>
-                    <div className="input-container">
+                </ul>
+                <div className="input-container">
 
                     <div className="input-part">
-                        <label>Image Url</label>
                         <input
-                        type={'text'}
-                        value={imageUrl}
-                        onChange={e => setImageUrl(e.target.value)}
-                         />
-                         {/* <>
+                            type={'text'}
+                            value={imageUrl}
+                            placeholder='ImageURL...'
+                            onChange={e => setImageUrl(e.target.value)}
+                        />
+                        {/* <>
                          {imageUrlValidationErrors.map((error, idx) => (
                             <li key={idx} className='create-group-error'>{error}</li>
                         ))}
                          </> */}
                     </div>
                     <div>
-                    <label>Description</label>
                         <input
-                        type={'text'}
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                         />
+                            type={'text'}
+                            value={description}
+                            placeholder="Description..."
+                            onChange={e => setDescription(e.target.value)}
+                        />
                     </div>
-                    </div>
-                    <div className="bottom-button">
-                        <button type="submit">Share</button>
-
-                        <button onClick={hideModal}>Cancel</button>
                 </div>
-                </form>
-            </div>
-        )
+                <div className="bottom-button">
+                    <button type="submit" className="login-button" style={{ width: '100px' }}>Share</button>
+
+                    <button onClick={hideModal} className="login-button" style={{ width: '100px' }}>Cancel</button>
+                </div>
+            </form>
+        </div>
+    )
 
 
 }
