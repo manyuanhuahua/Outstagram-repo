@@ -13,10 +13,10 @@ const SignUpForm = () => {
   const [fullname, setFullname] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [showPasswordText, setShowPasswordText] = useState('Show' || 'hide')
-  const [repeatPasswordShown, setRepeatPasswordShown] = useState(false);
-  const [repeatShowPasswordText, setRepeatShowPasswordText] = useState('Show' || 'hide')
+  // const [passwordShown, setPasswordShown] = useState(false);
+  // const [showPasswordText, setShowPasswordText] = useState('Show' || 'hide')
+  // const [repeatPasswordShown, setRepeatPasswordShown] = useState(false);
+  // const [repeatShowPasswordText, setRepeatShowPasswordText] = useState('Show' || 'hide')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -47,21 +47,21 @@ const SignUpForm = () => {
     setPassword('password')
   }
 
-  const togglePassword = (e) => {
-    e.preventDefault();
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setPasswordShown(!passwordShown);
-    setShowPasswordText(!showPasswordText)
-  };
+  // const togglePassword = (e) => {
+  //   e.preventDefault();
+  //   // When the handler is invoked
+  //   // inverse the boolean state of passwordShown
+  //   setPasswordShown(!passwordShown);
+  //   setShowPasswordText(!showPasswordText)
+  // };
 
-  const togglePassword2 = (e) => {
-    e.preventDefault();
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setRepeatPasswordShown(!repeatPasswordShown);
-    setRepeatShowPasswordText(!repeatShowPasswordText)
-  };
+  // const togglePassword2 = (e) => {
+  //   e.preventDefault();
+  //   // When the handler is invoked
+  //   // inverse the boolean state of passwordShown
+  //   setRepeatPasswordShown(!repeatPasswordShown);
+  //   setRepeatShowPasswordText(!repeatShowPasswordText)
+  // };
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -135,9 +135,9 @@ const SignUpForm = () => {
           </div>
           <div className='input-wrapper-div'>
             <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Password</label>
-            {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>}
+            {/* {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>} */}
             <input
-              type={passwordShown ? "text" : "password"}
+              type={"password"}
               name='password'
               onChange={updatePassword}
               value={password}
@@ -147,9 +147,9 @@ const SignUpForm = () => {
           </div>
           <div className='input-wrapper-div'>
             <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Repeat Password</label>
-            {repeatPassword && <button className="show-password-button" onClick={togglePassword2}>{repeatShowPasswordText ? 'Show' : 'Hide'}</button>}
+            {/* {repeatPassword && <button className="show-password-button" onClick={togglePassword2}>{repeatShowPasswordText ? 'Show' : 'Hide'}</button>} */}
             <input
-              type={repeatPasswordShown ? "text" : "password"}
+              type={"password"}
               name='repeat_password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
