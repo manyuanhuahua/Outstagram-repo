@@ -12,7 +12,7 @@ import { likePostThunk } from "../store/post";
 const HomePage = () => {
     const dispatch = useDispatch()
     const posts = Object.values(useSelector(state => state.post))
-
+    // test
 
 
     useEffect(() => {
