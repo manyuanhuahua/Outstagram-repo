@@ -17,7 +17,6 @@ const GetOthersPosts = () => {
     const [postsIsLoaded, setPostsIsLoaded] = useState(false);
     const postsList = Object.values(posts);
     const { userId } = useParams();
-    console.log(user)
     const handleFollows = async (userId) => {
         await dispatch(followUserThunk(userId))
         await dispatch(grabUserInfo(userId))
@@ -26,29 +25,29 @@ const GetOthersPosts = () => {
 
     useEffect(() => {
         dispatch(getOthersPostsThunk(userId)).then(dispatch(grabUserInfo(userId))).then(() => setPostsIsLoaded(true));
-    }, [dispatch]);
+    }, [dispatch, userId]);
 
 
     return (postsIsLoaded && <div className="section">
         <div className="top-container">
             <div className="left-part">
-                <img className="profile-img" alt="" src={postsList[0].user.profileImage}></img>
+                <img className="profile-img" alt="" src={user.profile_image}></img>
 
             </div>
             <div className="right-part">
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <h2 className="top-name">{postsList[0].user.username}</h2>
+                    <h2 className="top-name">{user.username}</h2>
                     {session.id !== user.id && (
                         <button style={{ fontSize: '14px', marginLeft: '60px', width: '95px', heigth: '35px' }} className="login-button" onClick={() => handleFollows(userId)}>{user.follow_status === 1 ? 'Unfollow' : 'Follow'}</button>
                     )
                     }
                 </div>
                 <div className="mid-nums">
-                    <p><span>{postsList[0].user.total_posts}</span>posts</p>
+                    <p><span>{user.total_posts}</span>posts</p>
                     <p><span>{user.total_followers}</span>followers</p>
                     <p><span>{user.total_followings}</span>followings</p>
                 </div>
-                <div className="bottom-fullname">{postsList[0].user.fullname} </div>
+                <div className="bottom-fullname">{user.fullname} </div>
             </div>
         </div>
         <div className="mid-container">POSTS</div>

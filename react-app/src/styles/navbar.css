@@ -28,6 +28,7 @@
   z-index: 1;
   border: .5px black solid;
   border-radius: 4px;
+  /* transition: 150ms all ease-in-out; */
   /* right: 45px; */
 }
 
