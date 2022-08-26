@@ -17,6 +17,15 @@ const LoginForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+
+  useEffect(() => {
+    let errors = [];
+    if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
+    if (!email.includes("@") || !email.includes(".com")) errors.push("Email must be valid")
+    if (!password) errors.push("Please enter a password")
+    setErrors(errors)
+  }, [email, password])
+
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
@@ -102,9 +111,9 @@ const LoginForm = () => {
             <div>
               <button onClick={() => demoLogIn()} className='login-button'>Demo User Log In</button>
             </div>
-            <div>
+            <div style={{ marginTop: '12px' }}>
               {errors.map((error, ind) => (
-                <div key={ind}>{error}</div>
+                <div style={{ textAlign: 'center', color: 'red', fontSize: '12px' }} key={ind}>{error}</div>
               ))}
             </div>
           </div>
