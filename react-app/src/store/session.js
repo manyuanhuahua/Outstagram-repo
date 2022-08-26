@@ -147,6 +147,7 @@ export const followUserThunk = (userId) => async dispatch => {
   const response = await fetch(`/api/follows/following/${userId}`, {
     method: 'PUT',
     headers: { 'Content_Type': 'application/json' },
+    body: JSON.stringify({})
   })
   if (response.ok) {
     const data = await response.json()
