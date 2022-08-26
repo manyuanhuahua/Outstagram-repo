@@ -13,13 +13,13 @@ function UsersList() {
 
   const userComponents = users.map((user) => {
     return (
-      <li style={{listStyle: 'none'}} key={user.id}>
+      <li style={{ listStyle: 'none' }} key={user.id}>
         <NavLink to={`/users/${user.id}`}>
-          <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}>
-            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}>
-              <img style={{height: '25px', width: '25px', borderRadius: '50%'}} src={user.profile_image} alt='profile' />
+          <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+              <img style={{ height: '25px', width: '25px', borderRadius: '50%' }} src={user.profile_image} alt='profile' />
             </div>
-            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', padding: '0 10px'}}>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', padding: '0 10px' }}>
               <span>{user.username}</span>
             </div>
           </div>
@@ -40,7 +40,7 @@ function UsersList() {
   return (
     <>
       {/* <h1>User List: </h1> */}
-      <ul style={{padding: 0, display: 'flex', flexDirection: "column", alignItems: 'flex-start'}}>{setIsLoaded && userComponents.length > 0 && userComponents}</ul>
+      <ul style={{ padding: 0, display: 'flex', flexDirection: "column", alignItems: 'flex-start' }}>{setIsLoaded && userComponents.length > 0 && userComponents}</ul>
     </>
   );
 }
