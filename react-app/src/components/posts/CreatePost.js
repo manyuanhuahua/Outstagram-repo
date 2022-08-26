@@ -42,7 +42,7 @@ const CreatePostForm = ({ hideModal }) => {
     }
 
     return (
-        <div className="create-post-container">
+        <div className="create-post-container" style={{ borderRadius: '50%' }}>
             <div>
                 <h2>Create New Post</h2>
             </div>
