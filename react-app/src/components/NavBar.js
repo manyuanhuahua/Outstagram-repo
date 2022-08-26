@@ -43,7 +43,7 @@ const NavBar = () => {
             Sign Up
           </NavLink>
         </li> */}
-        <div className='child-divs'>
+        <div className='child-divs' style={{cursor: 'pointer'}}>
           <ProfileButton />
         </div>
         {/* <div className='child-divs'>
