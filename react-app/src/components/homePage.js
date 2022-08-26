@@ -45,9 +45,9 @@ const HomePage = () => {
                                     <div className="post-body-like-comment-icons" style={{ display: "flex", flexDirection: 'row', padding: '12px 6px', paddingBottom: '0px' }}>
                                         <div onClick={() => handleLikes(post.id)}>
                                             {post.likeStatus === 1 ?
-                                                <img src={likedIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                                                <img src={likedIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px', cursor: 'pointer' }} />
                                                 :
-                                                <img src={likeIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                                                <img src={likeIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px', cursor: 'pointer' }} />
                                             }
 
                                         </div>
