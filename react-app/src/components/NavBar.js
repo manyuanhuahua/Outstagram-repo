@@ -1,5 +1,5 @@
 
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import '../styles/navbar.css'
@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <nav className='nav-bar'>
       <NavLink to="/">
-        <img src={logo} style={{ height: '40px', position: 'relative', top: '10px', marginLeft: '20vw' }} />
+        <img src={logo} style={{ height: '40px', position: 'relative', top: '10px', marginLeft: '25vw' }} />
       </NavLink>
       <div className='div-container'>
         <div className='child-divs'>
@@ -26,10 +26,10 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className='child-divs'>
-          <div onClick={()=>setCreateModal(true) }>
+          <div onClick={() => setCreateModal(true)}>
             <img src={uploadButton} style={{ height: '50px', width: '50px', cursor: 'pointer' }} alt='upload' />
           </div>
-          {createModal && <CreatePostModal setShowModal={setCreateModal}/>}
+          {createModal && <CreatePostModal setShowModal={setCreateModal} />}
 
         </div>
 
@@ -43,7 +43,7 @@ const NavBar = () => {
             Sign Up
           </NavLink>
         </li> */}
-        <div className='child-divs' style={{cursor: 'pointer'}}>
+        <div className='child-divs' style={{ cursor: 'pointer' }}>
           <ProfileButton />
         </div>
         {/* <div className='child-divs'>
