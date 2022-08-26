@@ -17,7 +17,7 @@ class Comment(db.Model):
   postId = db.Column(db.Integer, db.ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
   content = db.Column(db.String(500))
   # postedAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-  created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
+  created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
 
   user = relationship("User", back_populates="comments")
   post = relationship("Post", back_populates="comments")

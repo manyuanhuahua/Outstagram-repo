@@ -18,7 +18,7 @@ class Post(db.Model):
   # imageUrl = db.Column(db.String(500))
   image_url = db.Column(db.String(500))
   # postedAt = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-  created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
+  created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
 
   # user = relationship("User", back_populates="posts")
   user = db.relationship("User", back_populates="posts")

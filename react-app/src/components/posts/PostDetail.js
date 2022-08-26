@@ -124,9 +124,9 @@ const PostDetail = () => {
                     {/* <div><button onClick={() => handleLikes(postId)} >likes post</button></div> */}
                     <div onClick={() => handleLikes(postId)}>
                         {post.likeStatus === 1 ?
-                            <img src={likedIcon} alt="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                            <img src={likedIcon} alt="like-button-icon" style={{ height: '24px', width: '24px', cursor: 'pointer' }} />
                             :
-                            <img src={likeIcon} alt="like-button-icon" style={{ height: '24px', width: '24px' }} />
+                            <img src={likeIcon} alt="like-button-icon" style={{ height: '24px', width: '24px', cursor: 'pointer' }} />
                         }
 
                     </div>

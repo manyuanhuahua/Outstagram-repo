@@ -19,7 +19,7 @@ const GetComments = ({ postId }) => {
 
     useEffect(() => {
         dispatch(getCommentsThunk(postId)).then(() => setCommentsIsLoaded(true))
-    }, [dispatch])
+    }, [dispatch, postId])
 
     const handleDelete = async (postId, commentId) => {
 
@@ -94,9 +94,9 @@ const GetComments = ({ postId }) => {
                         {session.id === comment.userId && <button className="comment-list-delete-button" onClick={() => handleDelete(postId, comment.id)}>Delete Comment</button>}
                         <div onClick={() => handleLikes(postId, comment.id)}>
                             {comment.likeStatus === 1 ?
-                                <img src={likedIcon} alt="like-button-icon" style={{ height: '16px', width: '16px' }} />
+                                <img src={likedIcon} alt="like-button-icon" style={{ height: '16px', width: '16px', cursor: 'pointer' }} />
                                 :
-                                <img src={likeIcon} alt="like-button-icon" style={{ height: '16px', width: '16px' }} />
+                                <img src={likeIcon} alt="like-button-icon" style={{ height: '16px', width: '16px', cursor: 'pointer' }} />
                             }
                         </div>
 
