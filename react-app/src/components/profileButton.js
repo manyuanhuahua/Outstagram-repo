@@ -35,7 +35,7 @@ function ProfileButton() {
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <NavLink to={`/users/${sessionUser.id}/posts`} exact={true} style={{ display: 'flex', flexDirection: 'row', textDecoration: 'none' }}>
               <img style={{ height: '20px', width: '20px', marginRight: '5px', borderRadius: '50%' }} src={sessionUser.profile_image} alt='icon' />
-              <div style={{ fontWeight: '600', color: 'black', textDecoration: 'none', marginLeft: '5px' }}>Profile</div>
+              <div style={{ fontWeight: '600', color: 'black', textDecoration: 'none', marginLeft: '5px',marginTop:'2px' }}>Profile</div>
             </NavLink>
           </div>
 
