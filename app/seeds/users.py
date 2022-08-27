@@ -36,7 +36,7 @@ def seed_users():
     Luke = User(
         username='Luke', email='Luke@aa.io', fullname="Luke User", profile_image="https://1.bp.blogspot.com/-qES8XCPCoMs/YPenPwxubUI/AAAAAAAAFdg/txOuXwSLWGQLT-QGAh98a-8m26UjMU9XQCLcBGAsYHQ/s224/20210721_101605.jpg", bio="Luke User's bio", password='password')
     Tom = User(
-        username='TomMySpace', email='Tom@aa.io', fullname="Tom MySpace", profile_image="https://1.bp.blogspot.com/-qES8XCPCoMs/YPenPwxubUI/AAAAAAAAFdg/txOuXwSLWGQLT-QGAh98a-8m26UjMU9XQCLcBGAsYHQ/s224/20210721_101605.jpg", bio="Hi i'm Tom", password='Tom')
+        username='TomMySpace', email='Tom@aa.io', fullname="Tom MySpace", profile_image="https://hips.hearstapps.com/digitalspyuk.cdnds.net/16/23/1465636878-myspace-tom.jpg", bio="Hi i'm Tom", password='Tom')
 
 
     db.session.add(demo)
