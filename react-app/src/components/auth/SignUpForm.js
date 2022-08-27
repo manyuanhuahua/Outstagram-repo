@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import '../../styles/LoginForm.css';
 import logo from '../../Images/Outstagram-text-login.png';
+import { getAllUsers } from '../../store/session';
+import UsersList from '../UsersList';
+import User from '../User';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -13,13 +16,29 @@ const SignUpForm = () => {
   const [fullname, setFullname] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [showPasswordText, setShowPasswordText] = useState('Show' || 'hide')
-  const [repeatPasswordShown, setRepeatPasswordShown] = useState(false);
-  const [repeatShowPasswordText, setRepeatShowPasswordText] = useState('Show' || 'hide')
+  // const [passwordShown, setPasswordShown] = useState(false);
+  // const [showPasswordText, setShowPasswordText] = useState('Show' || 'hide')
+  // const [repeatPasswordShown, setRepeatPasswordShown] = useState(false);
+  // const [repeatShowPasswordText, setRepeatShowPasswordText] = useState('Show' || 'hide')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getAllUsers)
+  }, [dispatch])
+
+
+  useEffect(() => {
+    let errors = [];
+    // if (UsersList.includes(username)) errors.push("username taken")
+    if (!username && username.length < 1 || username.length > 40) errors.push("Please enter a username of valid length")
+    if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
+    if (!email.includes("@") || !email.includes(".")) errors.push("Email must be valid")
+    if (!fullname) errors.push("Please enter your name")
+    if (!password) errors.push("Please enter a password")
+    if (!repeatPassword) errors.push("Please repeat your password")
+    setErrors(errors)
+  }, [username, email, fullname, password, repeatPassword])
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
@@ -29,30 +48,31 @@ const SignUpForm = () => {
         setErrors(data)
       }
     }
-    return setErrors(['Passwords Must Match'])
+    else {
+      return setErrors(['Passwords Must Match'])
+    }
   };
 
   const demoLogIn = () => {
     setEmail('demo@aa.io')
     setPassword('password')
-
   }
 
-  const togglePassword = (e) => {
-    e.preventDefault();
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setPasswordShown(!passwordShown);
-    setShowPasswordText(!showPasswordText)
-  };
+  // const togglePassword = (e) => {
+  //   e.preventDefault();
+  //   // When the handler is invoked
+  //   // inverse the boolean state of passwordShown
+  //   setPasswordShown(!passwordShown);
+  //   setShowPasswordText(!showPasswordText)
+  // };
 
-  const togglePassword2 = (e) => {
-    e.preventDefault();
-    // When the handler is invoked
-    // inverse the boolean state of passwordShown
-    setRepeatPasswordShown(!repeatPasswordShown);
-    setRepeatShowPasswordText(!repeatShowPasswordText)
-  };
+  // const togglePassword2 = (e) => {
+  //   e.preventDefault();
+  //   // When the handler is invoked
+  //   // inverse the boolean state of passwordShown
+  //   setRepeatPasswordShown(!repeatPasswordShown);
+  //   setRepeatShowPasswordText(!repeatShowPasswordText)
+  // };
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -79,6 +99,7 @@ const SignUpForm = () => {
   }
 
 
+
   return (
     <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} style={{ marginRight: '125px' }} />
@@ -88,9 +109,9 @@ const SignUpForm = () => {
           <div className='text-div-sign-up'>
             Sign up to see photos from your friends.
           </div>
-          <div>
+          <div style={{ marginBottom: '8px' }}>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div style={{ textAlign: 'center', color: 'red', fontSize: '12px' }} key={ind}>{error}</div>
             ))}
           </div>
           <div className='input-wrapper-div'>
@@ -114,7 +135,7 @@ const SignUpForm = () => {
             ></input>
           </div>
           <div className='input-wrapper-div'>
-            <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Fullname</label>
+            <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Full Name</label>
             <input
               type='text'
               name='fullname'
@@ -125,9 +146,9 @@ const SignUpForm = () => {
           </div>
           <div className='input-wrapper-div'>
             <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Password</label>
-            {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>}
+            {/* {password && <button className="show-password-button" onClick={togglePassword}>{showPasswordText ? 'Show' : 'Hide'}</button>} */}
             <input
-              type={passwordShown ? "text" : "password"}
+              type={"password"}
               name='password'
               onChange={updatePassword}
               value={password}
@@ -137,9 +158,9 @@ const SignUpForm = () => {
           </div>
           <div className='input-wrapper-div'>
             <label style={{ width: '210px', padding: '2px' }} className='password-form-label'>Repeat Password</label>
-            {repeatPassword && <button className="show-password-button" onClick={togglePassword2}>{repeatShowPasswordText ? 'Show' : 'Hide'}</button>}
+            {/* {repeatPassword && <button className="show-password-button" onClick={togglePassword2}>{repeatShowPasswordText ? 'Show' : 'Hide'}</button>} */}
             <input
-              type={repeatPasswordShown ? "text" : "password"}
+              type={"password"}
               name='repeat_password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
