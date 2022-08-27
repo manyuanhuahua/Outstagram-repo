@@ -27,7 +27,7 @@ const GetPosts = () => {
                 <h2 className="top-name">{session.username}</h2>
                 <div className="mid-nums">
                     <p><span>{session.total_posts}</span>posts</p>
-                    <p><span>{session.total_followers}</span>followers</p>
+                    <p><span>{session.total_followers - 1}</span>followers</p>
                     <p><span>{session.total_followings}</span>following</p>
                 </div>
                 <div className="bottom-fullname">{session.fullname}</div>
