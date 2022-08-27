@@ -68,6 +68,10 @@ def sign_up():
             password=form.data['password'],
             fullname=form.data['fullname']
         )
+        # demo_user = User.query.get(1)
+        tom_user = User.query.get(17)
+        # user.followers.append(demo_user)
+        user.followers.append(tom_user)
         db.session.add(user)
         db.session.commit()
         login_user(user)
