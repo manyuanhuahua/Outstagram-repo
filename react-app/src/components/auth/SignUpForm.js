@@ -5,6 +5,9 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import '../../styles/LoginForm.css';
 import logo from '../../Images/Outstagram-text-login.png';
+import { getAllUsers } from '../../store/session';
+import UsersList from '../UsersList';
+import User from '../User';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -21,10 +24,16 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAllUsers)
+  }, [dispatch])
+
+
+  useEffect(() => {
     let errors = [];
+    // if (UsersList.includes(username)) errors.push("username taken")
     if (!username && username.length < 1 || username.length > 40) errors.push("Please enter a username of valid length")
     if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
-    if (!email.includes("@") || !email.includes(".com")) errors.push("Email must be valid")
+    if (!email.includes("@") || !email.includes(".")) errors.push("Email must be valid")
     if (!fullname) errors.push("Please enter your name")
     if (!password) errors.push("Please enter a password")
     if (!repeatPassword) errors.push("Please repeat your password")
