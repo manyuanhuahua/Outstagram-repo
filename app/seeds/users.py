@@ -35,7 +35,8 @@ def seed_users():
         username='Jacob', email='Jacob@aa.io', fullname="Jacob User", profile_image="https://data.whicdn.com/images/233748857/original.jpg", bio="Jacob User's bio", password='password')
     Luke = User(
         username='Luke', email='Luke@aa.io', fullname="Luke User", profile_image="https://1.bp.blogspot.com/-qES8XCPCoMs/YPenPwxubUI/AAAAAAAAFdg/txOuXwSLWGQLT-QGAh98a-8m26UjMU9XQCLcBGAsYHQ/s224/20210721_101605.jpg", bio="Luke User's bio", password='password')
-
+    Tom = User(
+        username='TomMySpace', email='Tom@aa.io', fullname="Tom MySpace", profile_image="https://1.bp.blogspot.com/-qES8XCPCoMs/YPenPwxubUI/AAAAAAAAFdg/txOuXwSLWGQLT-QGAh98a-8m26UjMU9XQCLcBGAsYHQ/s224/20210721_101605.jpg", bio="Hi i'm Tom", password='Tom')
 
 
     db.session.add(demo)
@@ -54,6 +55,8 @@ def seed_users():
     db.session.add(Elias)
     db.session.add(Jacob)
     db.session.add(Luke)
+    db.session.add(Tom)
+    Tom.followers = [demo, marnie]
     demo.followers = [marnie, bobbie, Emma]
     marnie.followers = [Eva, Jack, David, Elias]
     bobbie.followers = [Emma, Eva, Elias]
