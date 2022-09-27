@@ -67,7 +67,14 @@ li {
   margin-left: 10px;
 } */
 
+.each-fade {
+  margin-left: 155px;
+  margin-top: 25px;
+}
 
+svg {
+  display: none;
+}
 
 .login-form-wrapper {
   display: flex;
@@ -99,6 +106,10 @@ li {
   flex-direction: column;
 }
 
+.login-form-whole-container {
+  margin-left: 450px;
+}
+
 .signup-button-loginform-container {
   border: 1px solid rgba(157, 157, 157, 0.752);
   display: flex;
@@ -117,6 +128,18 @@ li {
   font-weight: 600;
   font-size: 14px;
 }
+
+@media screen and (max-width:1550px) {
+  .iphone-carousel-div {
+    display: none;
+  }
+
+  .login-form-whole-container {
+    margin-left: 0px;
+  }
+}
+
+
 
 .login-button {
   color: white;
@@ -191,6 +214,13 @@ input {
   /* margin-bottom: 8px; */
   border-radius: 2px;
   /* outline: auto; */
+}
+
+.iphone-carousel-div {
+  background-image: url(https://www.instagram.com/static/images/homepage/phones/home-phones.png/1dc085cdb87d.png);
+  background-position-x: left;
+  background-position-y: top;
+  background-repeat: no-repeat;
 }
 
 form {

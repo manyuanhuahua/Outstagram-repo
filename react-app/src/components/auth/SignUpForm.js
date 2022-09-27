@@ -8,6 +8,7 @@ import logo from '../../Images/Outstagram-text-login.png';
 import { getAllUsers } from '../../store/session';
 import UsersList from '../UsersList';
 import User from '../User';
+import Slideshow from './SlideShowImages/Slideshow';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -101,8 +102,11 @@ const SignUpForm = () => {
 
 
   return (
-    <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} style={{ marginRight: '125px' }} />
+    <div className={'login-form-whole-container'} style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      {/* <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} style={{ marginRight: '125px' }} /> */}
+      <div className={'iphone-carousel-div'} style={{ width: '600px', height: '800px', position: 'fixed', left: '10vw', top: '22%', marginLeft: '200px' }}>
+        <Slideshow a />
+      </div>
       <div className='login-form-container-div'>
         <form onSubmit={onSignUp} className='login-form-wrapper'>
           <img src={logo} alt="outstagram-text" className='outstagram-logo-text' style={{ marginBottom: '25px' }} />

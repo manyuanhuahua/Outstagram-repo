@@ -7,6 +7,7 @@ import '../../styles/LoginForm.css';
 import logo from '../../Images/Outstagram-text-login.png';
 import iphonePng from '../../Images/apple-iphone-13-2021-medium.png'
 // import Carousel from './Carousel';
+import Slideshow from './SlideShowImages/Slideshow';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -72,9 +73,12 @@ const LoginForm = () => {
 
 
   return (
-    <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+    <div className={'login-form-whole-container'} style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
       {/* <img src={iphonePng} style={{ height: '750px', width: '352px', marginRight: '100px', zIndex: '1' }} /> */}
-      <img src={'https://cdn.iphoneincanada.ca/wp-content/uploads/2019/10/instagram-dark-mode.jpg'} alt='iPhone' style={{ marginRight: '125px' }} />
+      <div className={'iphone-carousel-div'} style={{ width: '600px', height: '800px', position: 'fixed', left: '10vw', top: '22%', marginLeft: '200px' }}>
+        <Slideshow a />
+      </div>
+      {/* <img src={'https://www.instagram.com/static/images/homepage/phones/home-phones.png/1dc085cdb87d.png'} alt='iPhone' style={{ marginRight: '125px' }} /> */}
       <div className='login-form-container-div' style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           {/* <Carousel /> */}
