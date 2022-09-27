@@ -122,6 +122,10 @@ svg {
   font-size: 14px;
 }
 
+button.nav.default-nav {
+  display: none;
+}
+
 .signup-link-login-form {
   text-decoration: none;
   color: #0095f6;
