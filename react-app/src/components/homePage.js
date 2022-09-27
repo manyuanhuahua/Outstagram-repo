@@ -8,6 +8,12 @@ import likeIcon from '../Images/instagram-like-icon.png';
 import likedIcon from '../Images/PngItem_5229528.png'
 import commentIcon from '../Images/instagram-comment-icon.png';
 import { likePostThunk } from "../store/post";
+import linkedin from '../Images/Linkedin-Free-PNG-Image.png'
+import github from '../Images/github-logo.png'
+import timPic from '../Images/tim-pic.png'
+import brianPic from '../Images/brian-pic.jpg'
+import tingPic from '../Images/ting-pic.jpg'
+import zhihongPic from '../Images/zhihong-pic.jpg'
 
 const HomePage = () => {
     const dispatch = useDispatch()
@@ -80,6 +86,76 @@ const HomePage = () => {
                             </div>
                         ).reverse()
                     }
+                </div>
+            </div>
+            <div className="suggested-hire-outer-wrapper">
+
+                <div className="suggested-hire-wrapper">
+                    <h3 className="suggested-devs-to-hire-message">Suggested Dev's To Hire:</h3>
+                    <div className="suggested-hire-list">
+                        <div>
+                            <img src={timPic} className="dev-profile-pic"></img>
+                        </div>
+                        <div className="dev-name">
+                            Tim Reinhardt
+                        </div>
+                        <div className="suggested-hire-list-item">
+                            <a href={'https://www.linkedin.com/in/timreinhardt/'} target="_blank">
+                                <img src={linkedin} className="suggested-hire-linkedin-img" alt="linkedin-icon-clickable"></img>
+                            </a>
+                            <a href={'https://github.com/tjreinhardt'} target="_blank">
+                                <img src={github} className="suggested-hire-github-img" alt="github-icon-clickable"></img>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="suggested-hire-list">
+                        <div>
+                            <img src={brianPic} className="dev-profile-pic"></img>
+                        </div>
+                        <div className="dev-name">
+                            Brian Aguilar
+                        </div>
+                        <div className="suggested-hire-list-item">
+                            <a href={'https://www.linkedin.com/in/brian-aguilar-088438247/'} target="_blank">
+                                <img src={linkedin} className="suggested-hire-linkedin-img" alt="linkedin-icon-clickable"></img>
+                            </a>
+                            <a href={'https://github.com/Brian8771'} target="_blank">
+                                <img src={github} className="suggested-hire-github-img" alt="github-icon-clickable"></img>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="suggested-hire-list">
+                        <div>
+                            <img src={tingPic} className="dev-profile-pic"></img>
+                        </div>
+                        <div className="dev-name">
+                            Ting Feng
+                        </div>
+                        <div className="suggested-hire-list-item">
+                            <a href={'https://www.linkedin.com/in/tingfeng1113/'} target="_blank">
+                                <img src={linkedin} className="suggested-hire-linkedin-img" alt="linkedin-icon-clickable"></img>
+                            </a>
+                            <a href={'https://github.com/manyuanhuahua'} target="_blank">
+                                <img src={github} className="suggested-hire-github-img" alt="github-icon-clickable"></img>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="suggested-hire-list">
+                        <div>
+                            <img src={zhihongPic} className="dev-profile-pic"></img>
+                        </div>
+                        <div className="dev-name">
+                            Zhihong Liu
+                        </div>
+                        <div className="suggested-hire-list-item">
+                            <a href={'https://www.linkedin.com/in/zhihong-liu81/'} target="_blank">
+                                <img src={linkedin} className="suggested-hire-linkedin-img" alt="linkedin-icon-clickable"></img>
+                            </a>
+                            <a href={'https://github.com/zhihongliu81'} target="_blank">
+                                <img src={github} className="suggested-hire-github-img" alt="github-icon-clickable"></img>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
