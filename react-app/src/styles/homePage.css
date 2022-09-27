@@ -7,6 +7,107 @@
     margin: auto;
 }
 
+.posts-list {
+    margin-right: 20%;
+    margin-top: 19px;
+}
+
+.suggested-devs-to-hire-message {
+    text-align: center;
+    font-size: 22px;
+}
+
+.suggested-hire-wrapper {
+    border: 1px solid rgba(157, 157, 157, 0.752);
+    position: fixed;
+    /* margin-top: 100px; */
+    top: 90px;
+    /* width: 350px; */
+    height: 460px;
+    border-radius: 4px;
+    padding: 10px;
+    /* z-index: 3; */
+    bottom: 80%;
+    /* margin-right: 50px; */
+    /* top: 200px; */
+    /* left: 80%; */
+    left: 65%;
+}
+
+@media screen and (max-width:1100px) {
+    .suggested-hire-wrapper {
+        position: absolute;
+        width: 470px;
+        left: auto;
+        display: flex;
+        /* left: 23vw; */
+        /* right: auto; */
+        justify-content: center;
+        flex-direction: column;
+        width: auto;
+    }
+
+    .suggested-hire-outer-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .suggested-hire-list {
+        width: 450px;
+    }
+
+    .posts-list {
+        margin-top: 550px;
+        margin-right: 0;
+    }
+}
+
+.dev-name {
+    width: 150px;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.suggested-hire-list {
+    /* margin: 2px; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    border-top: 1px solid rgba(157, 157, 157, 0.752);
+}
+
+.dev-profile-pic {
+    width: 60px;
+    height: 60px;
+    margin-right: 14px;
+    margin-left: 4px;
+    /* border: 1px solid black; */
+    border-radius: 50%;
+}
+
+
+.suggested-hire-list-item {
+    /* width: 300px; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    /* height: 100px; */
+}
+
+.suggested-hire-linkedin-img {
+    width: 90px;
+    height: 60px;
+}
+
+.suggested-hire-github-img {
+    width: 40px;
+    height: 40px;
+}
+
 .post-wrapper {
     border: 1px solid rgba(157, 157, 157, 0.752);
     border-radius: 4px;

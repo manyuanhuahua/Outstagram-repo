@@ -14,7 +14,7 @@ import GetOthersPosts from './components/posts/GetOthersPosts';
 import HomePage from './components/homePage';
 import PostDetail from './components/posts/PostDetail';
 import CreatePostForm from './components/posts/CreatePost';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -77,7 +77,6 @@ function App() {
           </ProtectedRoute>
         </Switch>
       </BrowserRouter>
-      <Footer />
     </>
   );
 }
