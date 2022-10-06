@@ -4,6 +4,7 @@ const REMOVE_USER = 'session/REMOVE_USER';
 const SET_USERS = 'session/SET_USERS';
 const FOLLOW_USER = 'session/FOLLOW_USER';
 const SET_USER_PROFILE = 'session/SET_USER_PROFILE'
+const EDIT_SESSION_PROFILE = 'session/EDIT_SESSION_PROFILE'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -23,6 +24,13 @@ const setUserInfo = (user) => ({
   type: SET_USER_PROFILE,
   payload: user
 })
+
+const editSessionProfile = (user) => {
+  return {
+    type: EDIT_SESSION_PROFILE,
+    user
+  }
+}
 
 const followUser = (userId, totalFollows, follow_status) => {
   return {
@@ -157,6 +165,26 @@ export const followUserThunk = (userId) => async dispatch => {
 }
 
 
+export const editSessionProfileThunk = (userId, userProfile) => async dispatch => {
+  const response = await fetch(`/api/users/${userId}/edit`, {
+    method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userProfile)
+  });
+
+  const res = await response.json()
+    if (response.ok) {
+        dispatch(editSessionProfile(res));
+    }
+    return res
+}
+
+
+
+
+
 export default function reducer(state = initialState, action) {
   const newState = { ...state }
   switch (action.type) {
@@ -174,6 +202,10 @@ export default function reducer(state = initialState, action) {
       return newState
     case FOLLOW_USER:
       newState.users.followStatus = { ...newState[action.userId], totalFollows: action.totalFollows, follow_status: action.follow_status }
+      return newState
+    case EDIT_SESSION_PROFILE:
+      newState.user = action.user
+      newState.users = action.user
       return newState
     default:
       return state;

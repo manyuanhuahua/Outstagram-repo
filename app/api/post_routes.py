@@ -5,6 +5,8 @@ from app.models import Post,db, Comment
 from app.forms.create_post import CreatePostForm
 from app.forms.create_comment import CreateCommentForm
 import json
+from app.api.AWS_upload import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 
 post_routes = Blueprint('posts', __name__)
@@ -328,3 +330,34 @@ def update_comment_likes(postId,commentId):
         "likeStatus": current_user_like_status,
         "totalLikes": len(updated_comment.comment_like_users)
         }
+
+
+#add images to AWS, return the url when sucessful
+@post_routes.route('/addImages', methods=['POST'])
+@login_required
+def add_images():
+    if "image" not in request.files:
+        return {"errors": ["Image required"]}, 400
+
+    image = request.files["image"]
+
+    if not allowed_file(image.filename):
+        return {"errors": ["File type not permitted"]}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400
+
+    url = upload["url"]
+    # flask_login allows us to get the current user from the request
+
+    # new_image = Image(user=current_user, url=url)
+    # db.session.add(new_image)
+    # db.session.commit()
+    return {"url": url}
