@@ -8,6 +8,7 @@
     border: 1px solid rgba(128, 128, 128,0.3);
     border-radius: 0.2rem;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .edit-profile-modal-container {
@@ -25,11 +26,17 @@
     align-items: center;
 }
 
-.image-upload-container > img {
+.image-upload-editProfile {
     width: 12rem;
     height: 12rem;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.image-upload-createPost {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
 }
 
 .image-upload-form-container > h3 {
@@ -38,6 +45,11 @@
 
 .image-upload-form-container > form {
     margin: 0;
+}
+
+.image-upload-form-container > form > input {
+    border: none;
+
 }
 
 #file-upload::file-selector-button {

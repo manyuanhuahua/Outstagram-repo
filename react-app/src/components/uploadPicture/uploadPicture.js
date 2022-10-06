@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
 
-const UploadPicture = ({setProfileImage}) => {
+const UploadPicture = ({setProfileImage, setImageUrl, action}) => {
     const history = useHistory(); // so that we can redirect after the image upload is successful
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
@@ -11,6 +11,7 @@ const UploadPicture = ({setProfileImage}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const formData = new FormData();
         formData.append("image", image);
 
@@ -27,6 +28,9 @@ const UploadPicture = ({setProfileImage}) => {
             setUrl(data.url);
             if (setProfileImage) {
                 setProfileImage(data.url);
+            }
+            if (setImageUrl) {
+                setImageUrl(data.url);
             }
             setImageLoading(false);
             // history.push("/images");
@@ -47,7 +51,7 @@ const UploadPicture = ({setProfileImage}) => {
 
     return (
         <div className="image-upload-container">
-            {url && <img alt='' src={url} />}
+            {url && <img className={action === 'createPost' ? 'image-upload-createPost' : 'image-upload-editProfile'} alt='' src={url} />}
             <div className="image-upload-form-container">
                 <h3>Upload Your Image:</h3>
                 <form onSubmit={handleSubmit}>
