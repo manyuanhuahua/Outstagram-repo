@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams, useHistory } from "react-router-dom";
 import { createPostThunk } from "../../store/post";
-import "../../styles/createForm.css"
+import "../../styles/createForm.css";
+import UploadPicture from "../uploadPicture/uploadPicture";
 
 const CreatePostForm = ({ hideModal }) => {
     const dispatch = useDispatch();
@@ -43,30 +44,15 @@ const CreatePostForm = ({ hideModal }) => {
 
     return (
         <div className="create-post-container" style={{ borderRadius: '50%' }}>
-            <div>
-                <h2>Create New Post</h2>
-            </div>
+            <h2>Create New Post</h2>
+            <UploadPicture setImageUrl={setImageUrl} action='createPost' />
             <form onSubmit={handleSubmit} style={{ marginTop: '0px' }}>
                 <ul>
                     {errors.map((error, idx) => (
-                        <li key={idx} >{error}</li>
+                        <li className="error" key={idx} >{error}</li>
                     ))}
                 </ul>
                 <div className="input-container">
-
-                    <div className="input-part">
-                        <input
-                            type={'text'}
-                            value={imageUrl}
-                            placeholder='ImageURL...'
-                            onChange={e => setImageUrl(e.target.value)}
-                        />
-                        {/* <>
-                         {imageUrlValidationErrors.map((error, idx) => (
-                            <li key={idx} className='create-group-error'>{error}</li>
-                        ))}
-                         </> */}
-                    </div>
                     <div>
                         <input
                             type={'text'}
@@ -78,7 +64,6 @@ const CreatePostForm = ({ hideModal }) => {
                 </div>
                 <div className="bottom-button">
                     <button type="submit" className="login-button" style={{ width: '100px' }}>Share</button>
-
                     <button onClick={hideModal} className="login-button" style={{ width: '100px' }}>Cancel</button>
                 </div>
             </form>

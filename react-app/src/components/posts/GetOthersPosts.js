@@ -88,7 +88,7 @@ const GetOthersPosts = () => {
                         <Modal onClose={() => setShowEditProfileModal(false)}>
                                 <div className="edit-profile-modal-container">
                                     <h1>Edit Your Profile</h1>
-                                    <UploadPicture setProfileImage={setProfileImage} />
+                                    <UploadPicture setProfileImage={setProfileImage} action='editProfile'/>
                                     <form className="edit-profile-form" onSubmit={handleSubmit}>
                                         <ul>
                                             {errors.map((error, idx) => (
