@@ -1,60 +1,44 @@
-.nav-bar {
+nav {
   display: flex;
   position: sticky;
   top: 0;
   background-color: white;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+
   border-bottom: 1px solid rgba(157, 157, 157, 0.752);
-  height: 60px;
+  width: 100vw;
+  height: 50px;
   z-index: 99;
 }
+
 
 .div-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  width: 70%;
+  height: 100%;
+  margin-right: 250px;
+  width: 50%;
+
 }
 
 .child-divs {
   margin: 20px 5px;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 2px;
-  background-color: #f9f9f9;
-  width: 150px;
-  /* padding: 12px 16px; */
-  /* z-index: 1; */
-  border: .5px black solid;
-  border-radius: 4px;
-  /* transition: 150ms all ease-in-out; */
-  right: auto;
-}
-
-.dropdown:hover .dropdown-content {
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  color: #cccccc;
-}
-
 .logOutButton {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   width: 80%;
-  background-color: white;
-  color: black;
+  background: none;
+  color: #70887d;
+  /* background-color: white; */
   border: none;
   border-radius: 2px;
   margin: 8px 0;
+
 }
-
-

@@ -16,8 +16,8 @@ const NavBar = () => {
 
   return (
     <nav className='nav-bar'>
-      <NavLink to="/">
-        <img src={logo} style={{ height: '40px', position: 'relative', top: '10px', marginLeft: '25vw' }} />
+      <NavLink to="/" style={{width:'50%'}}>
+        <img src={logo} style={{ height: '40px', position: 'relative', marginLeft:'250px'}} />
       </NavLink>
       <div className='div-container'>
         <div className='child-divs'>
@@ -33,27 +33,9 @@ const NavBar = () => {
 
         </div>
 
-        {/* <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li> */}
         <div className='child-divs' style={{ cursor: 'pointer' }}>
           <ProfileButton />
         </div>
-        {/* <div className='child-divs'>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </div> */}
-        {/* <div className='child-divs'>
-          <LogoutButton />
-        </div> */}
       </div>
     </nav>
   );
