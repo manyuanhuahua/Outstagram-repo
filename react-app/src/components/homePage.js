@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import EmojiPicker,{EmojiClickData} from 'emoji-picker-react';
 import { NavLink } from "react-router-dom";
 import * as postActions from '../store/post'
 import { useDispatch, useSelector } from "react-redux";
@@ -14,20 +15,89 @@ import timPic from '../Images/tim-pic.png'
 import brianPic from '../Images/brian-pic.jpg'
 import tingPic from '../Images/ting-pic.jpg'
 import zhihongPic from '../Images/zhihong-pic.jpg'
+import { createCommentThunk } from "../store/comment";
+import icon from "../assets/commenticon.png"
 
 const HomePage = () => {
     const dispatch = useDispatch()
     const posts = Object.values(useSelector(state => state.post))
-    // test
+    const session = useSelector(state => state.session.user);
+    const [emoji,setEmoji] = useState('')
+    const [showEmoji,setShowEmoji] = useState(false)
+    const [selectedPost,setSeletedPost] = useState(null)
+    const [content, setContent] = useState('')
+    const [postId, setPostId] = useState(null)
 
+
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         dispatch(postActions.getAllPostsThunk())
     }, [dispatch])
 
+    const addEmoji = (emojiData, event)=>{
+
+        setEmoji(emojiData.emoji);
+        setContent(content+`${emoji}`)
+
+    }
+
+
     const handleLikes = async (postId) => {
         return dispatch(likePostThunk(postId))
     }
+
+
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrors([]);
+        const comment = {
+            content,
+            postId,
+            userId: session.id,
+
+        }
+        dispatch(createCommentThunk(postId, comment))
+            .then(
+                async (res) => {
+                    if (res.errors) {
+                        setErrors(res.errors)
+                    } else {
+                        setContent("")
+                    }
+                })
+    }
+
+    const timeAfterCreated = (createdAt) => {
+        const age = Date.now() - Date.parse(createdAt);
+        let res;
+        const second = Math.floor(age / 1000)
+        const minute = Math.floor(second / 60);
+        const hour = Math.floor(minute / 60);
+        const day = Math.floor(hour / 24);
+        const week = Math.floor(day / 7)
+        if (week > 0) {
+            res = `${week}w`
+        }
+        else if (day > 0) {
+            res = `${day}d`
+        }
+        else if (hour > 0) {
+            res = `${hour}h`
+        }
+        else if (minute > 0) {
+            res = `${minute}m`
+        }
+        else {
+            res = `${second}s`
+        }
+
+        return res
+    }
+
 
     return (
         <>
@@ -46,9 +116,11 @@ const HomePage = () => {
                                         <div>{post.user.username}</div>
                                     </NavLink>
                                 </div>
-                                <img style={{ height: '572px', width: '470px' }} src={post.imageUrl} alt='image' />
-                                <div >
-                                    <div className="post-body-like-comment-icons" style={{ display: "flex", flexDirection: 'row', padding: '12px 6px', paddingBottom: '0px' }}>
+                                <div className="post-img">
+                                    <img  src={post.imageUrl} alt='image' />
+                                </div>
+
+                                    <div className="post-body-like-comment-icons" >
                                         <div onClick={() => handleLikes(post.id)}>
                                             {post.likeStatus === 1 ?
                                                 <img src={likedIcon} alt="like-button-icon" className="like-button-icon" style={{ height: '24px', width: '24px', cursor: 'pointer' }} />
@@ -65,23 +137,47 @@ const HomePage = () => {
                                         </NavLink>
 
                                     </div>
-                                </div>
+
                                 <div className="post-like-counter-wrapper">
-                                    <div className="post-like-counter">{post.totalLikes} likes</div>
+                                    <p className="post-like-counter">{post.totalLikes} likes</p>
                                 </div>
                                 <div className="post-body-username-description-wrapper">
-                                    <NavLink className="post-header-username" to={`/users/${post.userId}/posts`}>
-                                        <div>{post.user.username}</div>
+                                    <NavLink className="post-header-username" to={`/posts/${post.id}`}>
+                                    <div style={{display:'flex',marginBottom:'8px'}}>
+                                    <p style={{fontWeight:'600',marginRight:'4px'}}>{post.user.username}</p>
+                                    <p className="post-body-description">{post.description}</p>
+                                    </div>
+                                    <div className="view-comment-counter">
+                                        {post.totalComments > 0? <p>View all {post.totalComments} comment(s)</p>: <></>}
+                                    </div>
+                                    <div className="view-comment-counter">
+                                        <p style={{fontSize:'12px'}}>{timeAfterCreated(post.createdAt)} ago</p>
+                                    </div>
                                     </NavLink>
-                                    <div className="post-body-description">{post.description}</div>
                                 </div>
                                 <div className="post-body-comments-wrapper">
-                                    <NavLink className="post-header-username" to={`/posts/${post.id}`}>
-                                        {!post.totalComments ?
-                                            <div className="post-body-comments">Add a comment</div> :
-                                            <div className="post-body-comments">{post.totalComments === 1 ? `View ${post.totalComments} comment` : `View all ${post.totalComments} comments`}</div>
-                                        }
-                                    </NavLink>
+                                    {/* <div className="comment-content-box"> */}
+                                    <form className="home-page-comment-form"  onSubmit={handleSubmit}>
+                                        {selectedPost === post.id && showEmoji? <EmojiPicker className='emoji-container'
+                                                onEmojiClick={addEmoji}
+                                                width={325}
+                                                height={333}
+                                                />:<></>}
+                                        <div className="comment-emoj-icon" >
+                                        <img src={icon} className='emoji-button' alt='' onClick={()=>{setShowEmoji(!showEmoji); setSeletedPost(post.id)}}/>
+                                        <textarea
+                                        value={content}
+                                        placeholder='Add a comment...'
+                                        onChange={e=>setContent(e.target.value)}
+                                        style={{overflow:'break-word'}}
+                                        onFocus={()=>setPostId(post.id)}
+                                        maxLength={201}
+                                        />
+                                        <button id='submit-comment-button' type="submit" onClick={handleSubmit}>Post</button>
+                                        </div>
+                                    </form>
+                                    {/* </div> */}
+
                                 </div>
                             </div>
                         ).reverse()
