@@ -27,9 +27,9 @@ function ProfileButton() {
 
   return (
     <div className="dropdown navLink">
-      <span style={{ color: '#cccccc', padding: '0 6px' }}>
+      {/* <span style={{ color: '#cccccc', padding: '0 6px' }}> */}
         <img className="profile-dropdown-image" style={{ height: '25px', width: '25px', borderRadius: '50%' }} src={sessionUser.profile_image} alt='icon' />
-      </span>
+      {/* </span> */}
       <div className="dropdown-content">
         <button className="logOutButton" style={{ cursor: 'pointer' }}>
           <div style={{ display: 'flex', flexDirection: 'row' }}>

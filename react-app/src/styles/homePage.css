@@ -266,7 +266,7 @@
     margin-top: 0;
     margin-bottom: 0;
 }
-.EmojiPickerReact{
+/* .EmojiPickerReact{
     display: none;
     position: absolute;
     bottom: 0;
@@ -274,17 +274,11 @@
     transition: all 200ms ease-out;
     z-index: 3;
 
-}
+} */
 
-aside.EmojiPickerReact.epr-main{
-    position:absolute;
-    bottom: 110%;
-}
 
-.EmojiPickerReact.active{
-    margin-bottom: 10px;
-    float: left;
-}
+
+
 
 .post-wrapper .post-img{
     height: 470px;
