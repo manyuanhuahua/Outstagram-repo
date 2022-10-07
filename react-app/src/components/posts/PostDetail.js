@@ -74,10 +74,12 @@ const PostDetail = () => {
 
     return (postIsLoaded && post && <>
         <div className="post-detail-container">
-            <div>
+            <div style={{background:'black'}}>
                 <div className="post-detail-post-image-top">
                 </div>
-                <img alt="" src={post.imageUrl} className="post-detail-post-image"></img>
+                <div style={{width: '500px', height: '500px',objectFit:'cover'}}>
+                    <img alt="" src={post.imageUrl} className="post-detail-post-image" />
+                </div>
                 <div className="post-detail-post-image-bottom">
                 </div>
             </div>
