@@ -46,11 +46,15 @@ const CreateCommentForm = ({ postId }) => {
              <div className="post-body-comments-wrapper">
                                     {/* <div className="comment-content-box"> */}
                 <form className="home-page-comment-form"  onSubmit={handleSubmit}>
-                    { showEmoji && <EmojiPicker className='emoji-container'
+                    { showEmoji &&
+                    <div style={{position:'absolute',bottom: '110%'}}>
+                    <EmojiPicker className='emoji-container'
                          onEmojiClick={addEmoji}
                         width={325}
                         height={333}
-                    />}
+                    />
+                    </div>
+                    }
                     <div className="comment-emoj-icon" >
                         <img src={icon} className='emoji-button' alt='' onClick={()=>{setShowEmoji(!showEmoji)}}/>
                         <textarea
