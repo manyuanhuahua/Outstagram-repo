@@ -19,16 +19,22 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   let errors = [];
+  //   if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
+  //   if (!email.includes("@") || !email.includes(".")) errors.push("Email must be valid")
+  //   if (!password) errors.push("Please enter a password")
+  //   setErrors(errors)
+  // }, [email, password])
+
+  const onLogin = async (e) => {
+    e.preventDefault();
     let errors = [];
     if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
     if (!email.includes("@") || !email.includes(".")) errors.push("Email must be valid")
     if (!password) errors.push("Please enter a password")
     setErrors(errors)
-  }, [email, password])
-
-  const onLogin = async (e) => {
-    e.preventDefault();
+    if (errors.length > 0) return setErrors;
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
@@ -92,7 +98,7 @@ const LoginForm = () => {
               type='text'
               value={email}
               onChange={updateEmail}
-              required
+
             />
           </div>
           <div>
@@ -106,7 +112,7 @@ const LoginForm = () => {
                 // placeholder='Password'
                 value={password}
                 onChange={updatePassword}
-                required
+
               />
             </div>
             <div>

@@ -29,7 +29,20 @@ const SignUpForm = () => {
   }, [dispatch])
 
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   let errors = [];
+  //   // if (UsersList.includes(username)) errors.push("username taken")
+  //   if (!username && username.length < 1 || username.length > 40) errors.push("Please enter a username of valid length")
+  //   if (!email && email.length < 7 && email.length < 255) errors.push("Please enter an email")
+  //   if (!email.includes("@") || !email.includes(".")) errors.push("Email must be valid")
+  //   if (!fullname) errors.push("Please enter your name")
+  //   if (!password) errors.push("Please enter a password")
+  //   if (!repeatPassword) errors.push("Please repeat your password")
+  //   setErrors(errors)
+  // }, [username, email, fullname, password, repeatPassword])
+
+  const onSignUp = async (e) => {
+    e.preventDefault();
     let errors = [];
     // if (UsersList.includes(username)) errors.push("username taken")
     if (!username && username.length < 1 || username.length > 40) errors.push("Please enter a username of valid length")
@@ -39,9 +52,7 @@ const SignUpForm = () => {
     if (!password) errors.push("Please enter a password")
     if (!repeatPassword) errors.push("Please repeat your password")
     setErrors(errors)
-  }, [username, email, fullname, password, repeatPassword])
-  const onSignUp = async (e) => {
-    e.preventDefault();
+    if (errors.length > 0) return setErrors;
     if (password === repeatPassword) {
       setErrors([]);
       const data = await dispatch(signUp(username, fullname, email, password));
@@ -125,7 +136,7 @@ const SignUpForm = () => {
               name='username'
               onChange={updateUsername}
               value={username}
-              required
+
             ></input>
           </div>
           <div className='input-wrapper-div'>
@@ -135,7 +146,7 @@ const SignUpForm = () => {
               name='email'
               onChange={updateEmail}
               value={email}
-              required
+
             ></input>
           </div>
           <div className='input-wrapper-div'>
@@ -145,7 +156,7 @@ const SignUpForm = () => {
               name='fullname'
               onChange={updateFullname}
               value={fullname}
-              required
+
             ></input>
           </div>
           <div className='input-wrapper-div'>
@@ -157,7 +168,7 @@ const SignUpForm = () => {
               onChange={updatePassword}
               value={password}
               autoComplete="new-password"
-              required
+
             ></input>
           </div>
           <div className='input-wrapper-div'>
@@ -169,7 +180,7 @@ const SignUpForm = () => {
               onChange={updateRepeatPassword}
               value={repeatPassword}
               autoComplete="new-password"
-              required={true}
+
             ></input>
           </div>
           <div>
