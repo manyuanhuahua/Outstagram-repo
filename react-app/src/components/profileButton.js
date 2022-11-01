@@ -41,10 +41,10 @@ function ProfileButton() {
         <img src={user.profile_image ? user.profile_image : defaultImg} alt='' onError={imgError} />
       </div>
       <div className='pro-drop-menu'>
-        <h4>{user.username}</h4>
+        <h4 style={{cursor:'default'}}>{user.username}</h4>
         <ul>
           <li><img src='https://cdn-icons-png.flaticon.com/512/48/48674.png' /><NavLink to={`/users/${user.id}/posts`}><p>My Profile</p></NavLink></li>
-          <li><img src='https://www.nicepng.com/png/detail/368-3689520_email-icons-grey-email-icon-pink-png.png' /><NavLink to={`/users/${user.id}/posts`}><p>{user.email}</p></NavLink></li>
+          {/* <li><img src='https://www.nicepng.com/png/detail/368-3689520_email-icons-grey-email-icon-pink-png.png' /><NavLink to={`/users/${user.id}/posts`}><p>{user.email}</p></NavLink></li> */}
           <li ><img src='https://png.pngtree.com/png-vector/20190425/ourmid/pngtree-vector-logout-icon-png-image_991952.jpg' /><LogoutButton /></li>
 
         </ul>

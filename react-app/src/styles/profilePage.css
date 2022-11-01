@@ -89,7 +89,7 @@
     display: block;
     width: 293px;
     height: 293px;
-    object-fit: cover;
+    object-fit: fill;
     /* opacity: 98%; */
     transition: 150ms all ease-in-out;
     box-shadow: 0 0 3px 2px #ffffff, 0 0 0 #000000;
@@ -100,5 +100,5 @@
 
 .post-img:hover {
     /* opacity: 100%; */
-    box-shadow: 0 0 3px 2px #000000d1, 0 0 0 #000000;
+    box-shadow: 0 0 1.5px 1px #000000d1, 0 0 0 #000000;
 }

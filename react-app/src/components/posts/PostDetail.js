@@ -107,7 +107,7 @@ const PostDetail = () => {
                         <div><img alt="" src={post.user.profileImage} className="post-detail-user-image" style={{ margin: '0px' }}></img></div>
                     </NavLink>
 
-                    <div>
+                    <div style={{marginLeft: '8px'}}>
                         <p><NavLink className="post-header-username" to={`/users/${post.userId}/posts`}>
                             <span className="post-detail-post-username" style={{ marginRight: '8px' }}>{post.user.username}</span>
                         </NavLink>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EmojiPicker,{EmojiClickData} from 'emoji-picker-react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import * as postActions from '../store/post'
 import { useDispatch, useSelector } from "react-redux";
 import UsersList from "./UsersList";
@@ -19,8 +19,9 @@ import { createCommentThunk } from "../store/comment";
 import icon from "../assets/commenticon.png"
 
 const HomePage = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
-    const posts = Object.values(useSelector(state => state.post))
+    const posts = Object.values(useSelector(state => state.post)).reverse()
     const session = useSelector(state => state.session.user);
     const [emoji,setEmoji] = useState('')
     const [showEmoji,setShowEmoji] = useState(false)
@@ -67,6 +68,7 @@ const HomePage = () => {
                         setErrors(res.errors)
                     } else {
                         setContent("")
+                        history.push(`/posts/${postId}`)
                     }
                 })
     }
@@ -116,9 +118,11 @@ const HomePage = () => {
                                         <div>{post.user.username}</div>
                                     </NavLink>
                                 </div>
+                                <NavLink to={`/posts/${post.id}`}>
                                 <div className="post-img">
                                     <img  src={post.imageUrl} alt='image' />
                                 </div>
+                                </NavLink>
 
                                     <div className="post-body-like-comment-icons" >
                                         <div onClick={() => handleLikes(post.id)}>
@@ -172,7 +176,7 @@ const HomePage = () => {
                                         <img src={icon} className='emoji-button' alt='' onClick={()=>{setShowEmoji(!showEmoji); setSeletedPost(post.id)}}/>
                                         <textarea
                                         value={content}
-                                        placeholder='Add a comment...'
+                                        placeholder=' Add a comment...'
                                         onChange={e=>setContent(e.target.value)}
                                         style={{overflow:'break-word'}}
                                         onFocus={()=>setPostId(post.id)}
@@ -185,7 +189,7 @@ const HomePage = () => {
 
                                 </div>
                             </div>
-                        ).reverse()
+                        )
                     }
                 </div>
             </div>

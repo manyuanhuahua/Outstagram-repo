@@ -8,7 +8,7 @@ def seed_users():
     marnie = User(
         username='marnie', email='marnie@aa.io', fullname="Marnie User", profile_image="https://4.bp.blogspot.com/--Jb5xRQqOBQ/VNUUjduewAI/AAAAAAAAItM/CvSghXaXDG4/s1600/Awesome-Facebook-Profile-Pictures-for-Girls-2015%2B(6).jpg", bio="Marnie User's bio", password='password')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', fullname="Bobbie User", profile_image="https://cdn-ajggd.nitrocdn.com/kMoOFpDlsOVtlYJLrnSRNCQXaUFHZPTY/assets/static/optimized/rev-97673c7/wp-content/uploads/2021/06/Cool-profile-picture-exposure.jpg", bio="Bobbie User's bio", password='password')
+        username='bobbie', email='bobbie@aa.io', fullname="Bobbie User", profile_image="https://image.shutterstock.com/mosaic_250/2780032/1770074666/stock-photo-head-shot-of-african-self-assured-executive-manager-portrait-successful-staff-member-company-1770074666.jpg", bio="Bobbie User's bio", password='password')
     Emma = User(
         username='Emma', email='Emma@aa.io', fullname="Emma User", profile_image="https://cdn.pixabay.com/photo/2016/11/22/21/42/woman-1850703__340.jpg", bio="Emma User's bio", password='password')
     Eva = User(
