@@ -29,21 +29,34 @@ function ProfileButton() {
     e.target.src = defaultImg
   }
 
-  const menuToggle = () => {
+  // const menuToggle = () => {
+  //   const toggleMenu = document.querySelector(".pro-drop-menu")
+  //   toggleMenu.classList.toggle('active')
+  // }
+
+
+  document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.querySelector('.pro-section');
     const toggleMenu = document.querySelector(".pro-drop-menu")
-    toggleMenu.classList.toggle('active')
-  }
+    if (box.contains(event.target)) {
+      toggleMenu.classList.add('active')
+
+    }
+    if (!box.contains(event.target)) {
+      toggleMenu.classList.remove('active')
+    }
+  });
 
 
   return (
     <div className="pro-section">
-      <div className='profile' onClick={() => menuToggle()}>
+      <div className='profile' >
         <img src={user.profile_image ? user.profile_image : defaultImg} alt='' onError={imgError} />
       </div>
       <div className='pro-drop-menu'>
-        <h4 style={{cursor:'default'}}>{user.username}</h4>
+        <h4 style={{ cursor: 'default' }}>{user.username}</h4>
         <ul>
-          <li><img src='https://cdn-icons-png.flaticon.com/512/48/48674.png' /><NavLink to={`/users/${user.id}/posts`}><p>My Profile</p></NavLink></li>
+          <li><img style={{ height: '20px', width: '21px' }} src={user.profile_image} /><NavLink to={`/users/${user.id}/posts`}><p>My Profile</p></NavLink></li>
           {/* <li><img src='https://www.nicepng.com/png/detail/368-3689520_email-icons-grey-email-icon-pink-png.png' /><NavLink to={`/users/${user.id}/posts`}><p>{user.email}</p></NavLink></li> */}
           <li ><img src='https://png.pngtree.com/png-vector/20190425/ourmid/pngtree-vector-logout-icon-png-image_991952.jpg' /><LogoutButton /></li>
 
