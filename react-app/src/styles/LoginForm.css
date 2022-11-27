@@ -154,12 +154,32 @@ button.nav.default-nav {
   font-size: 14px;
   width: 268px;
   height: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  padding-right: 9px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
   margin-top: 6px;
   cursor: pointer;
+}
+
+.unfollow-button {
+  background-color: white;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 4px;
+  font-weight: 550;
+  font-size: 14px;
+  width: 268px;
+  height: 30px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.like-button {
+  margin: 16px 10px 16px 0;
 }
 
 .outstagram-logo-text {

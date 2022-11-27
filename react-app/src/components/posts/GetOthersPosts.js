@@ -40,9 +40,9 @@ const GetOthersPosts = () => {
 
     useEffect(() => {
         setErrors([]);
-        const errors =[];
-        if(username.length === 0) errors.push("Username is required");
-        if(username.length > 40 ) errors.push("Username must be 40 characters or less");
+        const errors = [];
+        if (username.length === 0) errors.push("Username is required");
+        if (username.length > 40) errors.push("Username must be 40 characters or less");
         setUsernameValidationErrors(errors);
     }, [username])
 
@@ -57,15 +57,15 @@ const GetOthersPosts = () => {
         }
 
         dispatch(editSessionProfileThunk(userId, userProfile))
-        .then(
-            (res) => {
-                if (res.errors) {
-                    setErrors(res.errors)
-                } else {
-                    setShowEditProfileModal(false)
+            .then(
+                (res) => {
+                    if (res.errors) {
+                        setErrors(res.errors)
+                    } else {
+                        setShowEditProfileModal(false)
+                    }
                 }
-            }
-        )
+            )
 
     }
 
@@ -80,51 +80,54 @@ const GetOthersPosts = () => {
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <h2 className="top-name">{user.username}</h2>
                     {session.id !== user.id ?
-                        <button style={{ fontSize: '14px', marginLeft: '60px', width: '95px', heigth: '35px' }} className="login-button" onClick={() => handleFollows(userId)}>{user.follow_status === 1 ? 'Unfollow' : 'Follow'}</button> :
+                        <button style={{ fontSize: '14px', marginLeft: '60px', width: '95px', heigth: '35px' }} className={user.follow_status === 1 ? "unfollow-button" : "login-button"} onClick={() => handleFollows(userId)}>{user.follow_status === 1 ? 'Unfollow' : 'Follow'}</button> :
                         <button className="edit-profile-button" onClick={() => setShowEditProfileModal(true)}>Edit Profile</button>
                     }
                     {
                         showEditProfileModal &&
                         <Modal onClose={() => setShowEditProfileModal(false)}>
-                                <div className="edit-profile-modal-container">
-                                    <h1>Edit Your Profile</h1>
-                                    <UploadPicture setProfileImage={setProfileImage} action='editProfile'/>
-                                    <form className="edit-profile-form" onSubmit={handleSubmit}>
-                                        <ul>
-                                            {errors.map((error, idx) => (
+                            <div className="edit-profile-modal-container">
+                                <h1>Edit Your Profile</h1>
+                                <UploadPicture setProfileImage={setProfileImage} action='editProfile' />
+                                <form className="edit-profile-form" onSubmit={handleSubmit}>
+                                    <ul>
+                                        {errors.map((error, idx) => (
+                                            <li key={idx} className='error'>{error}</li>
+                                        ))}
+                                    </ul>
+                                    <div className="edit-profile-form-username">
+                                        <label>User Name:</label>
+                                        <input
+                                            type="text"
+                                            name="user name"
+                                            onChange={e => { setUsername(e.target.value) }}
+                                            value={username}
+                                        ></input>
+                                        <>
+                                            {usernameValidationErrors.map((error, idx) => (
                                                 <li key={idx} className='error'>{error}</li>
                                             ))}
-                                        </ul>
-                                        <div className="edit-profile-form-username">
-                                            <label>User Name:</label>
-                                            <input
-                                                type="text"
-                                                name="user name"
-                                                onChange={e => { setUsername(e.target.value) }}
-                                                value={username}
-                                            ></input>
-                                            <>
-                                                {usernameValidationErrors.map((error, idx) => (
-                                                    <li key={idx} className='error'>{error}</li>
-                                                ))}
-                                            </>
-                                        </div>
-                                        <button type="submit">submit</button>
-                                    </form>
-                                </div>
+                                        </>
+                                    </div>
+                                    <button type="submit">submit</button>
+                                </form>
+                            </div>
                         </Modal>
                     }
 
                 </div>
                 <div className="mid-nums">
                     <p><span>{user.total_posts}</span>posts</p>
-                    <p><span>{user.total_followers-1}</span>{(user.total_followers-1) > 1?"followers":"follower"}</p>
-                    <p><span>{user.total_followings}</span>{user.total_followings > 1?"followings":"following"}</p>
+                    <p><span>{user.total_followers - 1}</span>{(user.total_followers - 1) > 1 ? "followers" : "follower"}</p>
+                    <p><span>{user.total_followings}</span>{user.total_followings > 1 ? "followings" : "following"}</p>
                 </div>
-                <div className="bottom-fullname">{user.fullname} </div>
+                <div className="bottom-fullname">
+                    <p className="userFullname">{user.fullname}</p>
+                    <p className="userBio">{user.bio}</p>
+                </div>
             </div>
         </div>
-        <div className="mid-container">POSTS</div>
+        <div className="mid-container"></div>
         <div className="bottom-container">
             {postsList.map(post => (
                 <div className="img-container" key={post.id}>

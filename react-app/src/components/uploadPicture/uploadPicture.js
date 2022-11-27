@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 
-const UploadPicture = ({setProfileImage, setImageUrl, action}) => {
+const UploadPicture = ({ setProfileImage, setImageUrl, action }) => {
     const history = useHistory(); // so that we can redirect after the image upload is successful
     const [image, setImage] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
@@ -54,7 +54,7 @@ const UploadPicture = ({setProfileImage, setImageUrl, action}) => {
             {url && <img className={action === 'createPost' ? 'image-upload-createPost' : 'image-upload-editProfile'} alt='' src={url} />}
             <div className="image-upload-form-container">
                 <h3>Upload Your Image:</h3>
-                <form onSubmit={handleSubmit}>
+                <form style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }} onSubmit={handleSubmit}>
                     <input
                         id='file-upload'
                         type="file"

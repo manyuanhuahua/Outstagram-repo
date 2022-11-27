@@ -51,9 +51,19 @@
     font-weight: bold;
 }
 
-.top-container .right-part .bottom-fullname {
+.top-container .right-part {
     margin-right: 5px;
     font-weight: bold;
+}
+
+.bottom-fullname {
+    margin-right: 5px;
+}
+
+.userBio {
+    font-size: 16px;
+    color: #262626;
+    font-weight: 500;
 }
 
 .top-container .right-part .mid-nums p {
@@ -64,7 +74,7 @@
 .mid-container {
     margin: 50px 0 20px 0;
     padding-top: 15px;
-    border-top: 1px solid #8e8e8e;
+    border-top: 1px solid rgb(190, 190, 190);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -92,7 +102,7 @@
     object-fit: fill;
     /* opacity: 98%; */
     transition: 150ms all ease-in-out;
-    box-shadow: 0 0 3px 2px #ffffff, 0 0 0 #000000;
+    /* box-shadow: 0 0 3px 2px #ffffff, 0 0 0 #000000; */
 }
 
 

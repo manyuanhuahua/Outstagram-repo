@@ -53,10 +53,10 @@ const PostDetail = () => {
         const day = Math.floor(hour / 24);
         const week = Math.floor(day / 7)
         if (week > 0) {
-            res = `${week}w`
+            res = createdAt.split(', '[1])[2] + ' ' + createdAt.split(', '[1])[1]
         }
         else if (day > 0) {
-            res = `${day}d`
+            res = createdAt.split(', '[1])[2] + ' ' + createdAt.split(', '[1])[1]
         }
         else if (hour > 0) {
             res = `${hour}h`
@@ -71,13 +71,18 @@ const PostDetail = () => {
         return res
     }
 
+    const postCreatedDate = (createdAt) => {
+
+        return createdAt.split(', '[1])[2] + ' ' + createdAt.split(', '[1])[1]
+    }
+
 
     return (postIsLoaded && post && <>
         <div className="post-detail-container">
-            <div style={{background:'black'}}>
+            <div style={{ background: 'black' }}>
                 <div className="post-detail-post-image-top">
                 </div>
-                <div style={{width: '500px', height: '500px',objectFit:'cover'}}>
+                <div style={{ width: '500px', height: '500px', objectFit: 'cover' }}>
                     <img alt="" src={post.imageUrl} className="post-detail-post-image" />
                 </div>
                 <div className="post-detail-post-image-bottom">
@@ -90,7 +95,7 @@ const PostDetail = () => {
                             <img alt="" src={post.user.profileImage} className="post-detail-user-image" style={{ marginRight: '4px' }}></img>
                         </NavLink>
                         <NavLink className="post-header-username" to={`/users/${post.userId}/posts`}>
-                            <div className="post-detail-post-username" >{post.user.username}</div>
+                            <div style={{ paddingLeft: '4px' }} className="post-detail-post-username" >{post.user.username}</div>
                         </NavLink>
                     </div>
                     {showButton && (<div className="post-detail-buttons">
@@ -107,7 +112,7 @@ const PostDetail = () => {
                         <div><img alt="" src={post.user.profileImage} className="post-detail-user-image" style={{ margin: '0px' }}></img></div>
                     </NavLink>
 
-                    <div style={{marginLeft: '8px'}}>
+                    <div style={{ marginLeft: '8px' }}>
                         <p><NavLink className="post-header-username" to={`/users/${post.userId}/posts`}>
                             <span className="post-detail-post-username" style={{ marginRight: '8px' }}>{post.user.username}</span>
                         </NavLink>
@@ -134,7 +139,7 @@ const PostDetail = () => {
                     </div>
 
                     <div>{!!post.totalLikes && (post.totalLikes === 1 ? <p>1 like</p> : <p>{post.totalLikes} likes</p>)}</div>
-                    <p>{post.createdAt}</p>
+                    <p>{postCreatedDate(post.createdAt)}</p>
                 </div>
                 <div>
                     <CreateCommentForm postId={postId} />

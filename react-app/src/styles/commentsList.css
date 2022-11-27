@@ -33,14 +33,14 @@
 }
 
 .comment-list-username-content,
-.comment-list-create-like
- {
+.comment-list-create-like {
     display: flex;
     flex-direction: row;
 }
 
 .comment-list-username {
     font-weight: bold;
+    text-decoration: none;
 }
 
 .comment-list-create,
@@ -53,6 +53,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .comment-list-delete-button {
     margin-right: 10px;
 }
