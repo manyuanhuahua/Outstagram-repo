@@ -117,9 +117,9 @@ const GetOthersPosts = () => {
 
                 </div>
                 <div className="mid-nums">
-                    <p><span>{user.total_posts}</span>posts</p>
-                    <p><span>{user.total_followers - 1}</span>{(user.total_followers - 1) > 1 ? "followers" : "follower"}</p>
-                    <p><span>{user.total_followings}</span>{user.total_followings > 1 ? "followings" : "following"}</p>
+                    <p style={{ fontWeight: '400' }}><span style={{ fontWeight: '600' }}>{user.total_posts}</span>posts</p>
+                    <p style={{ fontWeight: '400' }}><span style={{ fontWeight: '600' }}>{user.total_followers - 1}</span>{(user.total_followers - 1) > 1 ? "followers" : "follower"}</p>
+                    <p style={{ fontWeight: '400' }}><span style={{ fontWeight: '600' }}>{user.total_followings}</span>{user.total_followings > 1 ? "followings" : "following"}</p>
                 </div>
                 <div className="bottom-fullname">
                     <p className="userFullname">{user.fullname}</p>
