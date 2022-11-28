@@ -178,7 +178,7 @@ const HomePage = () => {
                                                 value={content}
                                                 placeholder=' Add a comment...'
                                                 onChange={e => setContent(e.target.value)}
-                                                style={{ overflow: 'break-word', outline: 'none' }}
+                                                style={{ overflow: 'break-word', outline: 'none', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}
                                                 onFocus={() => setPostId(post.id)}
                                                 maxLength={201}
                                             />
